@@ -6,50 +6,50 @@
 
 @layer base {
   :root {
-    --background: 222 47% 6%;
-    --foreground: 210 40% 98%;
+    --background: 155 60% 92%;
+    --foreground: 200 15% 15%;
 
-    --card: 222 40% 10%;
-    --card-foreground: 210 40% 98%;
+    --card: 0 0% 100%;
+    --card-foreground: 200 15% 15%;
 
-    --popover: 222 40% 10%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 200 15% 15%;
 
-    --primary: 185 100% 50%;
-    --primary-foreground: 222 47% 6%;
+    --primary: 160 80% 35%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 265 60% 55%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 80 40% 45%;
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 222 30% 14%;
-    --muted-foreground: 215 20% 55%;
+    --muted: 155 30% 85%;
+    --muted-foreground: 200 10% 40%;
 
-    --accent: 222 30% 16%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 155 40% 88%;
+    --accent-foreground: 200 15% 15%;
 
     --destructive: 0 84% 60%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 222 20% 18%;
-    --input: 222 20% 18%;
-    --ring: 185 100% 50%;
+    --border: 155 20% 78%;
+    --input: 155 20% 78%;
+    --ring: 160 80% 35%;
 
     --radius: 0.75rem;
 
     /* Custom tokens */
-    --glow-cyan: 185 100% 50%;
-    --glow-purple: 265 60% 55%;
-    --surface-glass: 222 30% 12%;
-    --surface-glass-border: 222 20% 22%;
+    --glow-cyan: 175 100% 42%;
+    --glow-purple: 145 50% 50%;
+    --surface-glass: 0 0% 100%;
+    --surface-glass-border: 155 20% 80%;
 
-    --sidebar-background: 222 47% 6%;
-    --sidebar-foreground: 210 40% 98%;
-    --sidebar-primary: 185 100% 50%;
-    --sidebar-primary-foreground: 222 47% 6%;
-    --sidebar-accent: 222 30% 16%;
-    --sidebar-accent-foreground: 210 40% 98%;
-    --sidebar-border: 222 20% 18%;
-    --sidebar-ring: 185 100% 50%;
+    --sidebar-background: 155 60% 92%;
+    --sidebar-foreground: 200 15% 15%;
+    --sidebar-primary: 160 80% 35%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 155 40% 88%;
+    --sidebar-accent-foreground: 200 15% 15%;
+    --sidebar-border: 155 20% 78%;
+    --sidebar-ring: 160 80% 35%;
   }
 }
 
@@ -59,43 +59,51 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans antialiased;
+    @apply text-foreground font-sans antialiased;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: linear-gradient(135deg, #B6F6E8 0%, #80A345 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
   }
 }
 
 @layer components {
   .glass-card {
-    @apply bg-surface-glass/60 backdrop-blur-xl border border-surface-glass-border rounded-xl;
+    @apply bg-white/60 backdrop-blur-xl border border-white/40 rounded-xl;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
   }
 
   .glass-card-hover {
-    @apply glass-card transition-all duration-300 hover:border-primary/30 hover:shadow-[0_0_30px_-5px_hsl(var(--glow-cyan)/0.15)];
+    @apply glass-card transition-all duration-300 hover:border-primary/40 hover:shadow-[0_8px_40px_-5px_rgba(0,128,100,0.15)];
+    &:hover {
+      transform: translateY(-2px);
+    }
   }
 
   .glow-text {
     @apply text-primary;
-    text-shadow: 0 0 30px hsl(var(--glow-cyan) / 0.5);
+    text-shadow: 0 0 30px hsl(var(--glow-cyan) / 0.4);
   }
 
   .glow-button {
     @apply bg-primary text-primary-foreground font-semibold px-6 py-3 rounded-lg transition-all duration-300;
-    box-shadow: 0 0 20px hsl(var(--glow-cyan) / 0.3), 0 0 60px hsl(var(--glow-cyan) / 0.1);
+    box-shadow: 0 4px 20px hsl(var(--primary) / 0.3);
   }
 
   .glow-button:hover {
-    box-shadow: 0 0 30px hsl(var(--glow-cyan) / 0.5), 0 0 80px hsl(var(--glow-cyan) / 0.2);
+    box-shadow: 0 6px 30px hsl(var(--primary) / 0.45);
     transform: translateY(-1px);
   }
 
   .gradient-text {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary via-[hsl(var(--glow-purple))] to-primary;
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--glow-cyan)));
   }
 
   .grid-bg {
     background-image:
-      linear-gradient(hsl(var(--border) / 0.3) 1px, transparent 1px),
-      linear-gradient(90deg, hsl(var(--border) / 0.3) 1px, transparent 1px);
+      linear-gradient(hsl(var(--primary) / 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--primary) / 0.06) 1px, transparent 1px);
     background-size: 60px 60px;
   }
 

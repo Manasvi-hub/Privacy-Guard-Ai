@@ -4,13 +4,13 @@ import { Shield, Play } from "lucide-react";
 const HeroSection = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
-      {/* Animated grid background */}
-      <div className="absolute inset-0 grid-bg opacity-30" />
-      
+      {/* Subtle grid */}
+      <div className="absolute inset-0 grid-bg opacity-40" />
+
       {/* Gradient orbs */}
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-[120px] animate-pulse-glow" />
       <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-glow-purple/10 rounded-full blur-[120px] animate-pulse-glow" style={{ animationDelay: "1.5s" }} />
-      
+
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
           {/* Badge */}
@@ -29,10 +29,10 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-6"
+            className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-6 text-foreground"
           >
             Your AI Privacy{" "}
-            <span className="glow-text">Firewall</span>
+            <span className="gradient-text">Firewall</span>
           </motion.h1>
 
           {/* Subtext */}
@@ -42,7 +42,7 @@ const HeroSection = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10"
           >
-            Prevent sensitive data leaks before they happen. PrivacyGuard intercepts, 
+            Prevent sensitive data leaks before they happen. PrivacyGuard intercepts,
             detects, and redacts private information in real-time — directly in your browser.
           </motion.p>
 
@@ -59,7 +59,7 @@ const HeroSection = () => {
             </a>
             <a
               href="#demo"
-              className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors px-6 py-4 glass-card rounded-xl hover:border-muted-foreground/30"
+              className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors px-6 py-4 glass-card rounded-xl hover:border-primary/30"
             >
               <Play className="w-4 h-4" />
               Watch Demo
@@ -76,7 +76,7 @@ const HeroSection = () => {
         >
           <div className="relative">
             <div className="w-48 h-48 md:w-64 md:h-64 rounded-full bg-gradient-to-br from-primary/20 via-glow-purple/10 to-transparent flex items-center justify-center animate-float">
-              <div className="w-32 h-32 md:w-44 md:h-44 rounded-full bg-gradient-to-br from-primary/30 to-glow-purple/20 flex items-center justify-center backdrop-blur-sm border border-primary/20">
+              <div className="w-32 h-32 md:w-44 md:h-44 rounded-full bg-white/40 backdrop-blur-sm flex items-center justify-center border border-primary/20">
                 <Shield className="w-16 h-16 md:w-20 md:h-20 text-primary" strokeWidth={1.5} />
               </div>
             </div>
@@ -87,7 +87,7 @@ const HeroSection = () => {
                 className="absolute top-1/2 left-1/2 w-1 h-20 md:h-28 origin-bottom"
                 style={{ transform: `rotate(${deg}deg) translateY(-80px)` }}
               >
-                <div className="w-0.5 h-full bg-gradient-to-t from-primary/40 to-transparent mx-auto animate-pulse-glow" style={{ animationDelay: `${deg * 5}ms` }} />
+                <div className="w-0.5 h-full bg-gradient-to-t from-primary/30 to-transparent mx-auto animate-pulse-glow" style={{ animationDelay: `${deg * 5}ms` }} />
               </div>
             ))}
           </div>

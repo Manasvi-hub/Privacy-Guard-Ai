@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Cpu, DatabaseZap, ShieldCheck } from "lucide-react";
 
 const items = [
-  { icon: Cpu, label: "Local-first Processing", desc: "All detection runs in your browser" },
+  { icon: Cpu, label: "100% Local Processing", desc: "All detection runs in your browser" },
   { icon: DatabaseZap, label: "Zero Data Storage", desc: "Nothing leaves your device" },
   { icon: ShieldCheck, label: "GDPR / HIPAA Ready", desc: "Enterprise compliance built-in" },
 ];
@@ -18,7 +18,7 @@ const TrustBar = () => (
       >
         {items.map((item) => (
           <div key={item.label} className="flex items-center gap-4 md:justify-center md:px-6">
-            <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+            <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
               <item.icon className="w-5 h-5 text-primary" />
             </div>
             <div>
