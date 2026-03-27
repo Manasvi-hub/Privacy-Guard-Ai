@@ -35,10 +35,10 @@ export const Scene4Redaction: React.FC = () => {
     <AbsoluteFill style={{ fontFamily, display: "flex", alignItems: "center", justifyContent: "center" }}>
       {/* Step label */}
       <div style={{ position: "absolute", top: 80, width: "100%", textAlign: "center", opacity: labelOpacity }}>
-        <span style={{ fontSize: 18, fontWeight: 600, color: "#00b482", textTransform: "uppercase", letterSpacing: 3 }}>
+        <span style={{ fontSize: 18, fontWeight: 600, color: "#f084c7", textTransform: "uppercase", letterSpacing: 3 }}>
           Steps 3 & 4
         </span>
-        <h2 style={{ fontSize: 52, fontWeight: 700, color: "#1a2e1a", marginTop: 8 }}>
+        <h2 style={{ fontSize: 52, fontWeight: 700, color: "#ffffff", marginTop: 8 }}>
           Redact & send safely
         </h2>
       </div>
@@ -48,13 +48,14 @@ export const Scene4Redaction: React.FC = () => {
         style={{
           width: 900,
           marginTop: 60,
-          background: "rgba(255,255,255,0.7)",
+          background: "rgba(30,27,75,0.4)",
           borderRadius: 20,
-          border: "1px solid rgba(0,0,0,0.08)",
-          boxShadow: "0 20px 60px rgba(0,0,0,0.1)",
+          border: "1px solid rgba(255,255,255,0.1)",
+          boxShadow: "0 20px 60px rgba(0,0,0,0.3)",
           padding: 40,
           transform: `translateY(${sendY}px)`,
           opacity: sendOpacity > 0 ? 1 : sendOpacity,
+          backdropFilter: "blur(20px)",
         }}
       >
         {/* Before / After labels */}
@@ -70,7 +71,7 @@ export const Scene4Redaction: React.FC = () => {
             style={{
               fontSize: 18,
               lineHeight: 1.8,
-              color: "#1a2e1a",
+              color: "#ffffff",
               padding: "16px 20px",
               borderRadius: 12,
               background: "rgba(231,76,60,0.05)",
@@ -92,8 +93,8 @@ export const Scene4Redaction: React.FC = () => {
                     <span
                       key={i}
                       style={{
-                        color: shouldRedact ? "transparent" : "#1a2e1a",
-                        background: shouldRedact ? "#1a2e1a" : "transparent",
+                        color: shouldRedact ? "transparent" : "#ffffff",
+                        background: shouldRedact ? "#ffffff" : "transparent",
                         borderRadius: 2,
                         transition: "none",
                       }}
@@ -109,7 +110,7 @@ export const Scene4Redaction: React.FC = () => {
         {/* Arrow */}
         {frame > 90 && (
           <div style={{ textAlign: "center", marginBottom: 20, opacity: interpolate(frame, [90, 100], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }) }}>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00b482" strokeWidth="2">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f084c7" strokeWidth="2">
               <path d="M12 5v14M5 12l7 7 7-7" />
             </svg>
           </div>
@@ -118,18 +119,18 @@ export const Scene4Redaction: React.FC = () => {
         {/* Redacted version */}
         {frame > 90 && (
           <div>
-            <span style={{ fontSize: 13, fontWeight: 600, color: "#00b482", textTransform: "uppercase", letterSpacing: 2, display: "block", marginBottom: 10 }}>
+            <span style={{ fontSize: 13, fontWeight: 600, color: "#f084c7", textTransform: "uppercase", letterSpacing: 2, display: "block", marginBottom: 10 }}>
               Redacted (Safe) ✓
             </span>
             <div
               style={{
                 fontSize: 18,
                 lineHeight: 1.8,
-                color: "#1a2e1a",
+                color: "#ffffff",
                 padding: "16px 20px",
                 borderRadius: 12,
-                background: "rgba(0,180,130,0.05)",
-                border: "1px solid rgba(0,180,130,0.2)",
+                background: "rgba(255,255,255,0.05)",
+                border: "1px solid rgba(255,255,255,0.1)",
               }}
             >
               {REDACTED}
@@ -146,12 +147,12 @@ export const Scene4Redaction: React.FC = () => {
             width: 60,
             height: 60,
             borderRadius: "50%",
-            background: "#00b482",
+            background: "#f084c7",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
             transform: `scale(${checkScale})`,
-            boxShadow: "0 4px 20px rgba(0,180,130,0.4)",
+            boxShadow: "0 4px 20px rgba(240,132,199,0.4)",
           }}
         >
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3">
@@ -176,11 +177,11 @@ export const Scene4Redaction: React.FC = () => {
             display: "inline-block",
             padding: "12px 28px",
             borderRadius: 50,
-            background: "rgba(0,180,130,0.12)",
-            border: "1px solid rgba(0,180,130,0.3)",
+            background: "rgba(240,132,199,0.12)",
+            border: "1px solid rgba(255,255,255,0.1)",
             fontSize: 16,
             fontWeight: 600,
-            color: "#00805a",
+            color: "#ffffff",
           }}
         >
           ✅ Message sent securely — your data stays private

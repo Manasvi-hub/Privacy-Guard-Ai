@@ -41,10 +41,10 @@ export const Scene3Detection: React.FC = () => {
     <AbsoluteFill style={{ fontFamily, display: "flex", alignItems: "center", justifyContent: "center" }}>
       {/* Step label */}
       <div style={{ position: "absolute", top: 80, width: "100%", textAlign: "center", opacity: labelOpacity }}>
-        <span style={{ fontSize: 18, fontWeight: 600, color: "#00b482", textTransform: "uppercase", letterSpacing: 3 }}>
+        <span style={{ fontSize: 18, fontWeight: 600, color: "#f084c7", textTransform: "uppercase", letterSpacing: 3 }}>
           Step 2
         </span>
-        <h2 style={{ fontSize: 52, fontWeight: 700, color: "#1a2e1a", marginTop: 8 }}>
+        <h2 style={{ fontSize: 52, fontWeight: 700, color: "#ffffff", marginTop: 8 }}>
           AI detects sensitive data
         </h2>
       </div>
@@ -54,13 +54,14 @@ export const Scene3Detection: React.FC = () => {
         style={{
           width: 900,
           marginTop: 60,
-          background: "rgba(255,255,255,0.7)",
+          background: "rgba(30,27,75,0.4)",
           borderRadius: 20,
-          border: "1px solid rgba(0,0,0,0.08)",
-          boxShadow: "0 20px 60px rgba(0,0,0,0.1)",
+          border: "1px solid rgba(255,255,255,0.1)",
+          boxShadow: "0 20px 60px rgba(0,0,0,0.3)",
           padding: 40,
           position: "relative",
           overflow: "hidden",
+          backdropFilter: "blur(20px)",
         }}
       >
         {/* Scanning indicator */}
@@ -72,14 +73,14 @@ export const Scene3Detection: React.FC = () => {
               left: 0,
               right: 0,
               height: 3,
-              background: "rgba(0,180,130,0.1)",
+              background: "rgba(240,132,199,0.1)",
             }}
           >
             <div
               style={{
                 width: 100,
                 height: "100%",
-                background: "linear-gradient(90deg, transparent, #00b482, transparent)",
+                background: "linear-gradient(90deg, transparent, #f084c7, transparent)",
                 transform: `translateX(${scanLineX}px)`,
               }}
             />
@@ -94,16 +95,16 @@ export const Scene3Detection: React.FC = () => {
                 width: 8,
                 height: 8,
                 borderRadius: "50%",
-                background: "#00b482",
+                background: "#f084c7",
                 opacity: Math.sin(frame * 0.3) > 0 ? 1 : 0.3,
               }}
             />
-            <span style={{ fontSize: 14, color: "#00b482", fontWeight: 600 }}>Scanning for sensitive data...</span>
+            <span style={{ fontSize: 14, color: "#f084c7", fontWeight: 600 }}>Scanning for sensitive data...</span>
           </div>
         )}
 
         {/* Message text with highlights */}
-        <div style={{ fontSize: 20, lineHeight: 1.8, color: "#1a2e1a", position: "relative" }}>
+        <div style={{ fontSize: 20, lineHeight: 1.8, color: "#ffffff", position: "relative" }}>
           {MESSAGE.split("").map((char, i) => {
             const det = DETECTIONS.find((d) => i >= d.start && i < d.end);
             const isScanned = i < scanProgress;

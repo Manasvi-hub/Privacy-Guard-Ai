@@ -1,4 +1,4 @@
-import { AbsoluteFill, useCurrentFrame, useVideoConfig, interpolate, spring, Sequence } from "remotion";
+import { AbsoluteFill, useCurrentFrame, useVideoConfig, interpolate, spring, staticFile } from "remotion";
 import { loadFont } from "@remotion/google-fonts/Inter";
 
 const { fontFamily } = loadFont("normal", { weights: ["400", "700", "800"], subsets: ["latin"] });
@@ -35,8 +35,6 @@ export const Scene1Intro: React.FC = () => {
       {[0, 1, 2, 3, 4, 5].map((i) => {
         const angle = i * 60;
         const len = streamProgress * 200;
-        const x = 960 + Math.cos((angle * Math.PI) / 180) * len;
-        const y = 400 + Math.sin((angle * Math.PI) / 180) * len;
         return (
           <div
             key={i}
@@ -46,7 +44,7 @@ export const Scene1Intro: React.FC = () => {
               top: 400,
               width: 2,
               height: len,
-              background: `linear-gradient(to bottom, rgba(0,180,130,${0.4 * streamProgress}), transparent)`,
+              background: `linear-gradient(to bottom, rgba(110,90,196,${0.4 * streamProgress}), transparent)`,
               transformOrigin: "top center",
               transform: `rotate(${angle}deg)`,
             }}
@@ -54,31 +52,46 @@ export const Scene1Intro: React.FC = () => {
         );
       })}
 
-      {/* Shield */}
+      {/* Center Logo Visual matches the black square look of the provided image */}
       <div
         style={{
           position: "absolute",
-          top: 280,
+          top: 240,
           left: "50%",
           transform: `translateX(-50%) scale(${shieldScale}) rotate(${shieldRotate}deg)`,
-          width: 120,
-          height: 140,
+          width: 256,
+          height: 256,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          background: "linear-gradient(to bottom right, rgba(17, 17, 77, 0.2), rgba(110, 90, 196, 0.1), transparent)",
+          borderRadius: "50%",
         }}
       >
-        <svg viewBox="0 0 24 24" width="120" height="140" fill="none" stroke="rgba(0,100,70,0.8)" strokeWidth="1.5">
-          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" fill="rgba(0,180,130,0.15)" />
-          <path d="M9 12l2 2 4-4" stroke="rgba(0,180,130,0.9)" strokeWidth="2" />
-        </svg>
+        <div
+          style={{
+            width: 176,
+            height: 176,
+            background: "black",
+            backdropFilter: "blur(12px)",
+            borderRadius: 24,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5)",
+            overflow: "hidden",
+            border: "1px solid rgba(255,255,255,0.1)"
+          }}
+        >
+          <img src={staticFile("logo.jpg")} alt="Logo" style={{ width: "110%", height: "110%", objectFit: "cover" }} />
+        </div>
       </div>
 
       {/* Title */}
       <div
         style={{
           position: "absolute",
-          top: 460,
+          top: 520,
           width: "100%",
           textAlign: "center",
           opacity: titleOpacity,
@@ -87,19 +100,22 @@ export const Scene1Intro: React.FC = () => {
       >
         <h1
           style={{
-            fontSize: 82,
+            fontSize: 96,
             fontWeight: 800,
-            color: "#1a2e1a",
-            letterSpacing: -2,
+            color: "#ffffff",
+            letterSpacing: -4,
             margin: 0,
+            lineHeight: 1,
           }}
         >
           Your AI Privacy{" "}
           <span
             style={{
-              background: "linear-gradient(135deg, #00b482, #5a8a30)",
+              background: "linear-gradient(135deg, #11114D, #2D1B4B)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
+              display: "block",
+              marginTop: 10
             }}
           >
             Firewall
@@ -111,43 +127,47 @@ export const Scene1Intro: React.FC = () => {
       <div
         style={{
           position: "absolute",
-          top: 580,
+          top: 740,
           width: "100%",
           textAlign: "center",
           opacity: subOpacity,
           transform: `translateY(${subY}px)`,
         }}
       >
-        <p style={{ fontSize: 28, color: "#3a5a3a", fontWeight: 400, margin: 0 }}>
-          Prevent sensitive data leaks before they happen
+        <p style={{ fontSize: 24, color: "rgba(255, 255, 255, 0.8)", fontWeight: 400, margin: "0 auto", maxWidth: 700, lineHeight: 1.5 }}>
+          Prevent sensitive data leaks before they happen. PrivacyGuard intercepts,
+          detects, and redacts private information in real-time — directly in your browser.
         </p>
       </div>
 
-      {/* Badge */}
+      {/* CTA Button */}
       <div
         style={{
           position: "absolute",
-          top: 660,
+          top: 860,
           width: "100%",
           textAlign: "center",
           opacity: badgeOpacity,
           transform: `scale(${badgeScale})`,
         }}
       >
-        <span
+        <div
           style={{
-            display: "inline-block",
-            padding: "10px 24px",
-            borderRadius: 50,
-            background: "rgba(255,255,255,0.5)",
-            border: "1px solid rgba(0,180,130,0.3)",
-            fontSize: 16,
-            color: "#2a4a2a",
+            display: "inline-flex",
+            alignItems: "center",
+            gap: 12,
+            padding: "16px 32px",
+            borderRadius: 12,
+            background: "#11114D",
+            boxShadow: "0 10px 30px rgba(0, 0, 0, 0.3)",
+            fontSize: 18,
+            color: "#ffffff",
             fontWeight: 600,
           }}
         >
-          🛡️ Real-time protection for AI chats
-        </span>
+          <img src={staticFile("logo.jpg")} alt="" style={{ width: 24, height: 24, borderRadius: 4 }} />
+          Add to Chrome — Free
+        </div>
       </div>
     </AbsoluteFill>
   );

@@ -1,13 +1,10 @@
-import { Shield } from "lucide-react";
-
 const Navbar = () => {
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/50 backdrop-blur-xl border-b border-white/40 rounded-none">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-card/40 backdrop-blur-xl border-b border-white/10 rounded-none">
       <div className="container mx-auto flex items-center justify-between h-16 px-4">
         <div className="flex items-center gap-2">
-          <Shield className="w-6 h-6 text-primary" />
-          <span className="font-bold text-lg text-foreground">PrivacyGuard</span>
-          <span className="text-xs font-medium text-primary bg-primary/10 px-2 py-0.5 rounded-full">AI</span>
+          <img src="/logo.jpg" alt="PrivacyGuard AI Logo" className="w-8 h-8 rounded-lg object-cover" />
+          <span className="font-bold text-lg text-foreground">PrivacyGuard AI</span>
         </div>
         <div className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
           <a href="#features" className="hover:text-foreground transition-colors">Features</a>

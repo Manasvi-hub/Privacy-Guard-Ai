@@ -53,11 +53,12 @@ export const Scene2Typing: React.FC = () => {
           marginTop: 80,
           opacity: chatOpacity,
           transform: `scale(${chatScale})`,
-          background: "rgba(255,255,255,0.7)",
+          background: "rgba(30,27,75,0.4)",
           borderRadius: 20,
-          border: "1px solid rgba(0,0,0,0.08)",
-          boxShadow: "0 20px 60px rgba(0,0,0,0.1)",
+          border: "1px solid rgba(255,255,255,0.1)",
+          boxShadow: "0 20px 60px rgba(0,0,0,0.3)",
           overflow: "hidden",
+          backdropFilter: "blur(20px)",
         }}
       >
         {/* Header */}
@@ -82,12 +83,12 @@ export const Scene2Typing: React.FC = () => {
           <div style={{ display: "flex", marginBottom: 20 }}>
             <div
               style={{
-                background: "rgba(0,0,0,0.04)",
+                background: "rgba(255,255,255,0.05)",
                 borderRadius: "16px 16px 16px 4px",
                 padding: "14px 20px",
                 maxWidth: 500,
                 fontSize: 16,
-                color: "#333",
+                color: "#ffffff",
               }}
             >
               How can I help you today?
@@ -99,13 +100,14 @@ export const Scene2Typing: React.FC = () => {
             <div style={{ display: "flex", justifyContent: "flex-end" }}>
               <div
                 style={{
-                  background: "linear-gradient(135deg, #e8faf4, #d4f0e0)",
+                  background: "linear-gradient(135deg, #6e5ac4, #6452b3)",
                   borderRadius: "16px 16px 4px 16px",
                   padding: "14px 20px",
                   maxWidth: 600,
                   fontSize: 16,
-                  color: "#1a2e1a",
+                  color: "#ffffff",
                   lineHeight: 1.5,
+                  boxShadow: "0 10px 20px rgba(0,0,0,0.1)",
                 }}
               >
                 {typedText}
@@ -114,7 +116,7 @@ export const Scene2Typing: React.FC = () => {
                     display: "inline-block",
                     width: 2,
                     height: 18,
-                    background: "#00b482",
+                    background: "#f084c7",
                     marginLeft: 2,
                     opacity: cursorOpacity,
                     verticalAlign: "text-bottom",
@@ -128,7 +130,7 @@ export const Scene2Typing: React.FC = () => {
         {/* Input bar */}
         <div
           style={{
-            borderTop: "1px solid rgba(0,0,0,0.06)",
+            borderTop: "1px solid rgba(255,255,255,0.06)",
             padding: "12px 20px",
             display: "flex",
             alignItems: "center",
@@ -140,8 +142,8 @@ export const Scene2Typing: React.FC = () => {
               flex: 1,
               height: 40,
               borderRadius: 12,
-              background: "rgba(0,0,0,0.03)",
-              border: "1px solid rgba(0,0,0,0.08)",
+              background: "rgba(255,255,255,0.05)",
+              border: "1px solid rgba(255,255,255,0.08)",
             }}
           />
           <div
@@ -149,7 +151,7 @@ export const Scene2Typing: React.FC = () => {
               width: 40,
               height: 40,
               borderRadius: 12,
-              background: "#00b482",
+              background: "#f084c7",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",

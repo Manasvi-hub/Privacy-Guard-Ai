@@ -1,4 +1,4 @@
-import { AbsoluteFill, useCurrentFrame, useVideoConfig, interpolate, spring } from "remotion";
+import { AbsoluteFill, useCurrentFrame, useVideoConfig, interpolate, spring, staticFile } from "remotion";
 import { loadFont } from "@remotion/google-fonts/Inter";
 
 const { fontFamily } = loadFont("normal", { weights: ["400", "600", "700", "800"], subsets: ["latin"] });
@@ -35,14 +35,15 @@ export const Scene5Outro: React.FC = () => {
                 transform: `scale(${s})`,
                 padding: "12px 24px",
                 borderRadius: 50,
-                background: "rgba(255,255,255,0.5)",
-                border: "1px solid rgba(0,180,130,0.2)",
+                background: "rgba(30,27,75,0.4)",
+                border: "1px solid rgba(255,255,255,0.1)",
                 fontSize: 16,
                 fontWeight: 600,
-                color: "#2a4a2a",
+                color: "#ffffff",
                 display: "flex",
                 alignItems: "center",
                 gap: 8,
+                backdropFilter: "blur(10px)",
               }}
             >
               <span>{f.icon}</span>
@@ -52,29 +53,58 @@ export const Scene5Outro: React.FC = () => {
         })}
       </div>
 
+      {/* Final Logo */}
+      <div
+        style={{
+          position: "absolute",
+          top: 360,
+          left: "50%",
+          transform: `translateX(-50%) scale(${titleScale})`,
+          width: 120,
+          height: 120,
+          background: "black",
+          backdropFilter: "blur(8px)",
+          borderRadius: 20,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          boxShadow: "0 20px 40px rgba(0,0,0,0.5)",
+          overflow: "hidden",
+          opacity: titleOpacity,
+        }}
+      >
+        <img
+          src={staticFile("logo.jpg")}
+          alt="Logo"
+          style={{ width: "110%", height: "110%", objectFit: "cover" }}
+        />
+      </div>
+
       {/* Main title */}
       <div
         style={{
           textAlign: "center",
           opacity: titleOpacity,
           transform: `scale(${titleScale})`,
+          marginTop: 180,
         }}
       >
         <h1
           style={{
             fontSize: 90,
             fontWeight: 800,
-            color: "#1a2e1a",
+            color: "#ffffff",
             letterSpacing: -3,
             margin: 0,
             lineHeight: 1.1,
+            textShadow: "0 10px 40px rgba(0,0,0,0.4)",
           }}
         >
           Privacy
           <br />
           <span
             style={{
-              background: "linear-gradient(135deg, #00b482, #5a8a30)",
+              background: "linear-gradient(135deg, #11114D, #2D1B4B)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
             }}
@@ -94,7 +124,7 @@ export const Scene5Outro: React.FC = () => {
           opacity: subtitleOpacity,
         }}
       >
-        <p style={{ fontSize: 28, color: "#3a5a3a", fontWeight: 400 }}>
+        <p style={{ fontSize: 28, color: "rgba(255,255,255,0.8)", fontWeight: 400 }}>
           Protect your data. Use AI freely.
         </p>
       </div>
@@ -114,12 +144,12 @@ export const Scene5Outro: React.FC = () => {
             display: "inline-block",
             padding: "16px 40px",
             borderRadius: 16,
-            background: "linear-gradient(135deg, #00b482, #5a8a30)",
+            background: "linear-gradient(135deg, #f084c7, #6e5ac4)",
             fontSize: 20,
             fontWeight: 700,
             color: "white",
             transform: `scale(${logoPulse})`,
-            boxShadow: "0 8px 30px rgba(0,180,130,0.3)",
+            boxShadow: "0 8px 30px rgba(240,132,199,0.4)",
           }}
         >
           Available now — Free

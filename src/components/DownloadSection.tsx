@@ -8,7 +8,7 @@ const platforms = [
     desc: "Windows 10+ supported",
     available: true,
     href: "#",
-    cta: "Download for Windows",
+    cta: "Install for Windows",
   },
   {
     icon: Terminal,
@@ -16,15 +16,15 @@ const platforms = [
     desc: "Ubuntu, Fedora, Arch",
     available: true,
     href: "#",
-    cta: "Download for Linux",
+    cta: "Install for Linux",
   },
   {
     icon: Smartphone,
     name: "iOS",
     desc: "iPhone & iPad",
-    available: false,
+    available: true,
     href: "#",
-    cta: "Coming Soon",
+    cta: "Install for iOS",
   },
 ];
 
@@ -51,19 +51,20 @@ const DownloadSection = () => (
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: i * 0.1 }}
+            className="h-full"
           >
             <a
               href={p.available ? p.href : undefined}
-              className={`glass-card-hover p-8 text-center block ${!p.available ? "opacity-50 pointer-events-none" : ""}`}
+              className={`glass-card-hover p-8 text-center flex flex-col h-full ${!p.available ? "opacity-50 pointer-events-none" : ""}`}
             >
-              <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
+              <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-4 shrink-0">
                 <p.icon className="w-7 h-7 text-primary" />
               </div>
               <h3 className="font-semibold text-foreground mb-1">{p.name}</h3>
-              <p className="text-xs text-muted-foreground mb-4">{p.desc}</p>
-              <span className={`text-sm font-medium ${p.available ? "text-primary" : "text-muted-foreground"}`}>
-                {p.cta} →
-              </span>
+              <p className="text-xs text-muted-foreground mb-6 flex-grow">{p.desc}</p>
+              <div className="glow-button text-sm mt-auto">
+                {p.available ? p.cta : "Coming Soon"}
+              </div>
             </a>
           </motion.div>
         ))}

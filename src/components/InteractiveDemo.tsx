@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { Shield, AlertTriangle, Send } from "lucide-react";
+import { AlertTriangle, Send } from "lucide-react";
 
 const SENSITIVE_PATTERNS = [
   { regex: /\b\d{4}[\s-]?\d{4}[\s-]?\d{4}[\s-]?\d{4}\b/g, label: "Credit Card" },
@@ -79,7 +79,7 @@ const InteractiveDemo = () => {
           <div className="glass-card overflow-hidden">
             {/* Header */}
             <div className="flex items-center gap-2 px-5 py-3 border-b border-border">
-              <Shield className="w-4 h-4 text-primary" />
+              <img src="/logo.jpg" alt="" className="w-4 h-4 rounded-sm object-cover" />
               <span className="text-sm font-medium text-foreground">PrivacyGuard Demo Chat</span>
               <span className="ml-auto text-xs text-primary bg-primary/10 px-2 py-0.5 rounded-full">Protected</span>
             </div>
@@ -94,8 +94,8 @@ const InteractiveDemo = () => {
               {messages.map((msg, i) => (
                 <div key={i} className="space-y-2">
                   <div className="flex justify-end">
-                    <div className="bg-primary/10 border border-primary/20 rounded-xl rounded-br-sm px-4 py-2.5 max-w-[85%]">
-                      <p className="text-sm text-foreground">{msg.text}</p>
+                    <div className="bg-primary shadow-lg shadow-primary/20 rounded-xl rounded-br-sm px-4 py-2.5 max-w-[85%]">
+                      <p className="text-sm text-white font-medium">{msg.text}</p>
                     </div>
                   </div>
                   {msg.detections.length > 0 && (
@@ -118,9 +118,9 @@ const InteractiveDemo = () => {
                       transition={{ delay: 0.2 }}
                       className="flex justify-end"
                     >
-                      <div className="bg-primary/5 border border-primary/15 rounded-xl rounded-br-sm px-4 py-2.5 max-w-[85%]">
-                        <p className="text-xs text-primary font-medium mb-1">✓ Redacted & Safe</p>
-                        <p className="text-sm text-foreground">{msg.redacted}</p>
+                      <div className="bg-white/5 border border-white/10 backdrop-blur-md rounded-xl rounded-br-sm px-4 py-2.5 max-w-[85%]">
+                        <p className="text-xs text-primary font-bold mb-1">✓ Redacted & Safe</p>
+                        <p className="text-sm text-white/90 leading-relaxed">{msg.redacted}</p>
                       </div>
                     </motion.div>
                   )}

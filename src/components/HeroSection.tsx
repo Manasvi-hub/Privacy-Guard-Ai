@@ -1,6 +1,6 @@
 import { useState } from "react";
+import { Play } from "lucide-react";
 import { motion } from "framer-motion";
-import { Shield, Play } from "lucide-react";
 import VideoModal from "./VideoModal";
 
 const HeroSection = () => {
@@ -59,7 +59,7 @@ const HeroSection = () => {
               className="flex flex-col sm:flex-row items-center justify-center gap-4"
             >
               <a href="#download" className="glow-button flex items-center gap-2 text-base px-8 py-4 rounded-xl">
-                <Shield className="w-5 h-5" />
+                <img src="/logo.jpg" alt="" className="w-5 h-5 rounded-sm object-cover" />
                 Add to Chrome — Free
               </a>
               <button
@@ -81,8 +81,8 @@ const HeroSection = () => {
           >
             <div className="relative">
               <div className="w-48 h-48 md:w-64 md:h-64 rounded-full bg-gradient-to-br from-primary/20 via-glow-purple/10 to-transparent flex items-center justify-center animate-float">
-                <div className="w-32 h-32 md:w-44 md:h-44 rounded-full bg-white/40 backdrop-blur-sm flex items-center justify-center border border-primary/20">
-                  <Shield className="w-16 h-16 md:w-20 md:h-20 text-primary" strokeWidth={1.5} />
+                <div className="w-32 h-32 md:w-44 md:h-44 rounded-2xl bg-black flex items-center justify-center border border-white/10 overflow-hidden shadow-2xl shadow-primary/20">
+                  <img src="/logo.jpg" alt="PrivacyGuard AI Logo" className="w-full h-full object-cover scale-110" />
                 </div>
               </div>
               {[0, 60, 120, 180, 240, 300].map((deg) => (

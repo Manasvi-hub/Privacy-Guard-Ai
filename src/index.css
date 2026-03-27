@@ -6,50 +6,50 @@
 
 @layer base {
   :root {
-    --background: 155 60% 92%;
-    --foreground: 200 15% 15%;
+    --background: 251 37% 51%;
+    --foreground: 0 0% 100%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 200 15% 15%;
+    --card: 251 37% 10%;
+    --card-foreground: 0 0% 100%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 200 15% 15%;
+    --popover: 251 37% 10%;
+    --popover-foreground: 0 0% 100%;
 
-    --primary: 160 80% 35%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 243 75% 25%;
+    --primary-foreground: 210 40% 98%;
 
-    --secondary: 80 40% 45%;
+    --secondary: 251 49% 60%;
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 155 30% 85%;
-    --muted-foreground: 200 10% 40%;
+    --muted: 251 49% 65%;
+    --muted-foreground: 210 40% 98%;
 
-    --accent: 155 40% 88%;
-    --accent-foreground: 200 15% 15%;
+    --accent: 322 81% 73%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
+    --destructive-foreground: 210 40% 98%;
 
-    --border: 155 20% 78%;
-    --input: 155 20% 78%;
-    --ring: 160 80% 35%;
+    --border: 251 37% 65%;
+    --input: 251 37% 65%;
+    --ring: 243 75% 25%;
 
     --radius: 0.75rem;
 
     /* Custom tokens */
-    --glow-cyan: 175 100% 42%;
-    --glow-purple: 145 50% 50%;
+    --glow-cyan: 243 75% 25%;
+    --glow-purple: 251 49% 56%;
     --surface-glass: 0 0% 100%;
-    --surface-glass-border: 155 20% 80%;
+    --surface-glass-border: 0 0% 100%;
 
-    --sidebar-background: 155 60% 92%;
-    --sidebar-foreground: 200 15% 15%;
-    --sidebar-primary: 160 80% 35%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 155 40% 88%;
-    --sidebar-accent-foreground: 200 15% 15%;
-    --sidebar-border: 155 20% 78%;
-    --sidebar-ring: 160 80% 35%;
+    --sidebar-background: 251 37% 51%;
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-primary: 243 75% 25%;
+    --sidebar-primary-foreground: 210 40% 98%;
+    --sidebar-accent: 251 49% 60%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 251 37% 65%;
+    --sidebar-ring: 243 75% 25%;
   }
 }
 
@@ -61,7 +61,7 @@
   body {
     @apply text-foreground font-sans antialiased;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    background: linear-gradient(135deg, #B6F6E8 0%, #80A345 100%);
+    background: linear-gradient(135deg, #6452b3 0%, #6e5ac4 30%, #f084c7 70%, #eda1d0 100%);
     background-attachment: fixed;
     min-height: 100vh;
   }
@@ -69,12 +69,12 @@
 
 @layer components {
   .glass-card {
-    @apply bg-white/60 backdrop-blur-xl border border-white/40 rounded-xl;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+    @apply bg-card/40 backdrop-blur-xl border border-white/10 rounded-xl;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
   }
 
   .glass-card-hover {
-    @apply glass-card transition-all duration-300 hover:border-primary/40 hover:shadow-[0_8px_40px_-5px_rgba(0,128,100,0.15)];
+    @apply glass-card transition-all duration-300 hover:border-primary/30 hover:shadow-[0_8px_40px_-5px_rgba(20,184,166,0.12)];
     &:hover {
       transform: translateY(-2px);
     }
@@ -82,28 +82,28 @@
 
   .glow-text {
     @apply text-primary;
-    text-shadow: 0 0 30px hsl(var(--glow-cyan) / 0.4);
+    text-shadow: 0 0 30px hsl(var(--glow-cyan) / 0.3);
   }
 
   .glow-button {
     @apply bg-primary text-primary-foreground font-semibold px-6 py-3 rounded-lg transition-all duration-300;
-    box-shadow: 0 4px 20px hsl(var(--primary) / 0.3);
+    box-shadow: 0 4px 20px hsl(var(--primary) / 0.25);
   }
 
   .glow-button:hover {
-    box-shadow: 0 6px 30px hsl(var(--primary) / 0.45);
+    box-shadow: 0 6px 30px hsl(var(--primary) / 0.4);
     transform: translateY(-1px);
   }
 
   .gradient-text {
     @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--glow-cyan)));
+    background-image: linear-gradient(135deg, hsl(var(--primary)), #2D1B4B);
   }
 
   .grid-bg {
     background-image:
-      linear-gradient(hsl(var(--primary) / 0.06) 1px, transparent 1px),
-      linear-gradient(90deg, hsl(var(--primary) / 0.06) 1px, transparent 1px);
+      linear-gradient(hsl(var(--primary) / 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--primary) / 0.04) 1px, transparent 1px);
     background-size: 60px 60px;
   }
 
