@@ -61,7 +61,7 @@ const InteractiveDemo = () => {
           className="text-center mb-12"
         >
           <p className="text-primary text-sm font-semibold tracking-wider uppercase mb-3">Interactive Demo</p>
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-4">
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-4 text-foreground">
             See it in <span className="text-muted-foreground">action</span>
           </h2>
           <p className="text-muted-foreground max-w-lg mx-auto">
@@ -93,18 +93,16 @@ const InteractiveDemo = () => {
               )}
               {messages.map((msg, i) => (
                 <div key={i} className="space-y-2">
-                  {/* Original */}
                   <div className="flex justify-end">
                     <div className="bg-primary/10 border border-primary/20 rounded-xl rounded-br-sm px-4 py-2.5 max-w-[85%]">
                       <p className="text-sm text-foreground">{msg.text}</p>
                     </div>
                   </div>
-                  {/* Detection alert */}
                   {msg.detections.length > 0 && (
                     <motion.div
                       initial={{ opacity: 0, scale: 0.95 }}
                       animate={{ opacity: 1, scale: 1 }}
-                      className="flex items-start gap-2 glass-card p-3 border-destructive/30"
+                      className="flex items-start gap-2 bg-destructive/5 border border-destructive/20 rounded-xl p-3"
                     >
                       <AlertTriangle className="w-4 h-4 text-destructive shrink-0 mt-0.5" />
                       <div>
@@ -113,7 +111,6 @@ const InteractiveDemo = () => {
                       </div>
                     </motion.div>
                   )}
-                  {/* Redacted */}
                   {msg.detections.length > 0 && (
                     <motion.div
                       initial={{ opacity: 0 }}
@@ -121,7 +118,7 @@ const InteractiveDemo = () => {
                       transition={{ delay: 0.2 }}
                       className="flex justify-end"
                     >
-                      <div className="bg-primary/5 border border-primary/10 rounded-xl rounded-br-sm px-4 py-2.5 max-w-[85%]">
+                      <div className="bg-primary/5 border border-primary/15 rounded-xl rounded-br-sm px-4 py-2.5 max-w-[85%]">
                         <p className="text-xs text-primary font-medium mb-1">✓ Redacted & Safe</p>
                         <p className="text-sm text-foreground">{msg.redacted}</p>
                       </div>
@@ -146,7 +143,7 @@ const InteractiveDemo = () => {
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && handleSend()}
                   placeholder="Type a message with sensitive data..."
-                  className="flex-1 bg-muted rounded-lg px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground outline-none focus:ring-1 focus:ring-primary/50 transition-shadow"
+                  className="flex-1 bg-accent rounded-lg px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground outline-none focus:ring-1 focus:ring-primary/50 transition-shadow"
                 />
                 <button onClick={() => handleSend()} className="glow-button px-4 py-2.5 rounded-lg">
                   <Send className="w-4 h-4" />
@@ -161,7 +158,7 @@ const InteractiveDemo = () => {
               <button
                 key={i}
                 onClick={() => handleSend(msg)}
-                className="text-xs text-muted-foreground hover:text-foreground glass-card px-3 py-1.5 hover:border-primary/20 transition-all"
+                className="text-xs text-muted-foreground hover:text-foreground glass-card px-3 py-1.5 hover:border-primary/20 transition-all cursor-pointer"
               >
                 Example {i + 1}
               </button>

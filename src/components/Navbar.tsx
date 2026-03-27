@@ -2,7 +2,7 @@ import { Shield } from "lucide-react";
 
 const Navbar = () => {
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 glass-card border-t-0 border-x-0 rounded-none">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/50 backdrop-blur-xl border-b border-white/40 rounded-none">
       <div className="container mx-auto flex items-center justify-between h-16 px-4">
         <div className="flex items-center gap-2">
           <Shield className="w-6 h-6 text-primary" />
@@ -15,7 +15,7 @@ const Navbar = () => {
           <a href="#demo" className="hover:text-foreground transition-colors">Demo</a>
           <a href="#download" className="hover:text-foreground transition-colors">Download</a>
         </div>
-        <a href="#download" className="glow-button text-sm px-4 py-2">Get Started</a>
+        <a href="#download" className="glow-button text-sm px-4 py-2 rounded-lg">Get Started</a>
       </div>
     </nav>
   );
