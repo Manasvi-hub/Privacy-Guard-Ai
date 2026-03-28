@@ -1,30 +1,46 @@
 import { motion } from "framer-motion";
-import { Monitor, Terminal, Smartphone } from "lucide-react";
+import { Chrome, Compass, Flame, Globe, CircleDot } from "lucide-react";
 
 const platforms = [
   {
-    icon: Monitor,
-    name: "Windows",
-    desc: "Windows 10+ supported",
+    icon: Chrome,
+    name: "Chrome",
+    desc: "Chrome Web Store",
     available: true,
     href: "#",
-    cta: "Install for Windows",
+    cta: "Add to Chrome",
   },
   {
-    icon: Terminal,
-    name: "Linux",
-    desc: "Ubuntu, Fedora, Arch",
+    icon: Globe,
+    name: "Edge",
+    desc: "Microsoft Edge Add-ons",
     available: true,
     href: "#",
-    cta: "Install for Linux",
+    cta: "Add to Edge",
   },
   {
-    icon: Smartphone,
-    name: "iOS",
-    desc: "iPhone & iPad",
+    icon: Flame,
+    name: "Firefox",
+    desc: "Firefox Browser Add-ons",
     available: true,
     href: "#",
-    cta: "Install for iOS",
+    cta: "Add to Firefox",
+  },
+  {
+    icon: CircleDot,
+    name: "Opera",
+    desc: "Opera Add-ons",
+    available: true,
+    href: "#",
+    cta: "Add to Opera",
+  },
+  {
+    icon: Compass,
+    name: "Safari",
+    desc: "Mac App Store",
+    available: true,
+    href: "#",
+    cta: "Add to Safari",
   },
 ];
 
@@ -37,13 +53,13 @@ const DownloadSection = () => (
         viewport={{ once: true }}
         className="text-center mb-16"
       >
-        <p className="text-primary text-sm font-semibold tracking-wider uppercase mb-3">Download</p>
+        <p className="text-primary text-sm font-semibold tracking-wider uppercase mb-3">Extensions</p>
         <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-4">
-          Get protected <span className="text-muted-foreground">today</span>
+          Add to your <span className="text-muted-foreground">browser</span>
         </h2>
       </motion.div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 max-w-6xl mx-auto">
         {platforms.map((p, i) => (
           <motion.div
             key={p.name}
@@ -55,14 +71,14 @@ const DownloadSection = () => (
           >
             <a
               href={p.available ? p.href : undefined}
-              className={`glass-card-hover p-8 text-center flex flex-col h-full ${!p.available ? "opacity-50 pointer-events-none" : ""}`}
+              className={`glass-card-hover p-6 text-center flex flex-col h-full ${!p.available ? "opacity-50 pointer-events-none" : ""}`}
             >
-              <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-4 shrink-0">
-                <p.icon className="w-7 h-7 text-primary" />
+              <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-4 shrink-0">
+                <p.icon className="w-6 h-6 text-primary" />
               </div>
-              <h3 className="font-semibold text-foreground mb-1">{p.name}</h3>
-              <p className="text-xs text-muted-foreground mb-6 flex-grow">{p.desc}</p>
-              <div className="glow-button text-sm mt-auto">
+              <h3 className="font-semibold text-foreground mb-1 text-base">{p.name}</h3>
+              <p className="text-[10px] text-muted-foreground mb-4 flex-grow">{p.desc}</p>
+              <div className="glow-button text-xs py-2 px-3 mt-auto">
                 {p.available ? p.cta : "Coming Soon"}
               </div>
             </a>
