@@ -32,25 +32,26 @@ const ProcessStepGuide = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start end", "end start"],
+    // Adjust offset so the animation finishes while the component is still in the middle of the screen
+    offset: ["start 80%", "end 20%"],
   });
 
   const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
+    stiffness: 70,
+    damping: 20,
     restDelta: 0.001
   });
 
-  const pathLength = useTransform(smoothProgress, [0, 1], [0, 1]);
+  // Map the smooth progress so the path reaches 100% (1.0) before the scroll is finished
+  const pathLength = useTransform(smoothProgress, [0, 0.9], [0, 1]);
 
   const cardVariants = {
-    hidden: { opacity: 0, scale: 0.9, y: 0 },
+    hidden: { opacity: 0, scale: 0.8 },
     visible: (i: number) => ({
       opacity: 1,
       scale: 1,
-      y: 0,
       transition: {
-        delay: i * 0.15,
+        delay: i * 0.1,
         duration: 0.5,
         ease: "easeOut",
       },
@@ -68,7 +69,7 @@ const ProcessStepGuide = () => {
         </p>
       </div>
 
-      <div ref={containerRef} className="max-w-6xl mx-auto relative px-4 min-h-[650px] flex items-center">
+      <div ref={containerRef} className="max-w-6xl mx-auto relative px-4 min-h-[600px] flex items-center">
         {/* Desktop S-Curve Path */}
         <div className="hidden md:block absolute inset-0 w-full h-full pointer-events-none overflow-visible">
           <svg width="100%" height="100%" viewBox="0 0 1000 400" fill="none" className="overflow-visible">
@@ -91,7 +92,7 @@ const ProcessStepGuide = () => {
         </div>
 
         {/* Mobile Process Line */}
-        <div className="md:hidden absolute left-8 top-0 bottom-0 w-1 bg-white/5 overflow-hidden rounded-full">
+        <div className="md:hidden absolute left-8 top-0 bottom-0 w-1 bg-white/5 overflow-hidden rounded-full font-bold">
           <motion.div 
             className="w-full bg-secondary origin-top"
             style={{ scaleY: smoothProgress }}
@@ -103,28 +104,28 @@ const ProcessStepGuide = () => {
           {steps.map((step, i) => (
             <div key={i} className="relative flex flex-col items-start md:items-center h-full">
               
-              {/* Desktop Layout (Alternating Top/Bottom with clear separation) */}
+              {/* Desktop Layout */}
               <div className="hidden md:flex flex-col items-center w-full min-h-[500px] justify-center relative">
                 
-                {/* Text Card (Above or Below) */}
+                {/* Text Card */}
                 <motion.div
                   custom={i}
                   variants={cardVariants}
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true }}
-                  className={`absolute w-full max-w-[220px] 
+                  className={`absolute w-full max-w-[220px] z-30
                     ${step.position === 'top' ? 'bottom-[280px]' : 'top-[280px]'}`}
                 >
                   <div className="glass-card p-5 border-white/10 hover:border-secondary/40 transition-all bg-black/60 backdrop-blur-xl shadow-2xl rounded-2xl">
-                     <h3 className="text-lg font-bold text-white mb-3 leading-tight">{step.title}</h3>
-                     <p className="text-[12px] text-muted-foreground/90 leading-relaxed font-semibold">
+                     <h3 className="text-lg font-bold text-white mb-3 leading-tight tracking-tight">{step.title}</h3>
+                     <p className="text-[12px] text-muted-foreground/90 leading-relaxed font-bold">
                        {step.desc}
                      </p>
                   </div>
                 </motion.div>
 
-                {/* Numbered Marker (Center) */}
+                {/* Numbered Marker */}
                 <motion.div
                   initial={{ scale: 0, opacity: 0 }}
                   whileInView={{ scale: 1, opacity: 1 }}
@@ -137,7 +138,7 @@ const ProcessStepGuide = () => {
                 </motion.div>
               </div>
 
-              {/* Mobile Layout (Standard Stack) */}
+              {/* Mobile Layout */}
               <div className="md:hidden flex flex-col items-start pl-16">
                  <motion.div
                    initial={{ scale: 0, opacity: 0 }}
@@ -149,7 +150,7 @@ const ProcessStepGuide = () => {
                  </motion.div>
                  <div className="glass-card p-4 border-white/10 bg-black/40 backdrop-blur-md">
                    <h3 className="text-lg font-bold text-white mb-2">{step.title}</h3>
-                   <p className="text-sm text-muted-foreground leading-relaxed">{step.desc}</p>
+                   <p className="text-sm text-muted-foreground leading-relaxed font-bold">{step.desc}</p>
                  </div>
               </div>
 
