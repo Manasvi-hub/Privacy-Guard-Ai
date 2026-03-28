@@ -79,21 +79,40 @@ const ProcessStepGuide = () => {
         {/* Desktop Sinusoidal Path */}
         <div className="hidden md:block absolute inset-0 w-full h-full pointer-events-none overflow-visible">
           <svg width="100%" height="100%" viewBox="0 0 1000 400" fill="none" className="overflow-visible">
+            <defs>
+              <linearGradient id="process-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#a78bfa" />
+                <stop offset="50%" stopColor="#ec4899" />
+                <stop offset="100%" stopColor="#f97316" />
+              </linearGradient>
+              <filter id="glow">
+                <feGaussianBlur stdDeviation="8" result="blur" />
+                <feMerge>
+                  <feMergeNode in="blur" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+            </defs>
+            {/* Glow layer */}
             <motion.path
                 d="M 50 100 C 150 100, 250 300, 375 300 S 500 100, 625 100 S 750 300, 875 300"
                 stroke="url(#process-gradient)"
-                strokeWidth="6"
-                strokeDasharray="16 16"
+                strokeWidth="12"
+                strokeLinecap="round"
+                fill="none"
+                opacity="0.3"
+                filter="url(#glow)"
+                style={{ pathLength }}
+            />
+            {/* Main line */}
+            <motion.path
+                d="M 50 100 C 150 100, 250 300, 375 300 S 500 100, 625 100 S 750 300, 875 300"
+                stroke="url(#process-gradient)"
+                strokeWidth="3"
                 strokeLinecap="round"
                 fill="none"
                 style={{ pathLength }}
             />
-            <defs>
-              <linearGradient id="process-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="hsl(var(--primary))" />
-                <stop offset="100%" stopColor="hsl(var(--secondary))" />
-              </linearGradient>
-            </defs>
           </svg>
         </div>
 

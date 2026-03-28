@@ -10,6 +10,10 @@ import ProcessStepGuide from "@/components/ProcessStepGuide";
 import IDEDownloadSection from "@/components/IDEDownloadSection";
 import Footer from "@/components/Footer";
 
+const SectionDivider = () => (
+  <div className="section-divider mx-auto max-w-4xl" />
+);
+
 const Index = () => {
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
@@ -22,18 +26,27 @@ const Index = () => {
     <div className="min-h-screen relative">
       {/* Scroll Progress Indicator */}
       <motion.div
-        className="fixed top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-primary via-secondary to-accent z-[60] origin-left"
-        style={{ scaleX }}
+        className="fixed top-0 left-0 right-0 h-[2px] z-[60] origin-left"
+        style={{
+          scaleX,
+          backgroundImage: "linear-gradient(90deg, #a78bfa, #ec4899, #f97316)",
+        }}
       />
 
       <Navbar />
       <HeroSection />
       <TrustBar />
+      <SectionDivider />
       <FeaturesSection />
+      <SectionDivider />
       <HowItWorks />
+      <SectionDivider />
       <InteractiveDemo />
+      <SectionDivider />
       <DownloadSection />
+      <SectionDivider />
       <ProcessStepGuide />
+      <SectionDivider />
       <IDEDownloadSection />
       <Footer />
     </div>
