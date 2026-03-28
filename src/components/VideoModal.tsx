@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 
@@ -32,31 +32,37 @@ const VideoModal = ({ isOpen, onClose }: VideoModalProps) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
+          transition={{ duration: 0.4 }}
           className="fixed inset-0 z-[100] flex items-center justify-center p-4"
           onClick={onClose}
         >
-          {/* Backdrop */}
-          <div className="absolute inset-0 bg-foreground/60 backdrop-blur-sm" />
+          {/* Premium Backdrop */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="absolute inset-0 bg-black/80 backdrop-blur-2xl"
+          />
 
           {/* Modal */}
           <motion.div
-            initial={{ scale: 0.85, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.85, opacity: 0 }}
-            transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="relative z-10 w-full max-w-4xl"
+            initial={{ scale: 0.9, opacity: 0, y: 30 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            exit={{ scale: 0.9, opacity: 0, y: 30 }}
+            transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
+            className="relative z-10 w-full max-w-5xl"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Close button */}
             <button
               onClick={onClose}
-              className="absolute -top-12 right-0 w-10 h-10 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center transition-colors"
+              className="absolute -top-14 right-0 w-12 h-12 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 flex items-center justify-center transition-all duration-300 group"
             >
-              <X className="w-5 h-5 text-white" />
+              <X className="w-5 h-5 text-white/60 group-hover:text-white transition-colors" />
             </button>
 
-            {/* Video container */}
-            <div className="rounded-2xl overflow-hidden shadow-2xl bg-foreground">
+            {/* Video container with premium frame */}
+            <div className="rounded-3xl overflow-hidden shadow-[0_60px_120px_-30px_rgba(0,0,0,0.8)] border border-white/5 bg-black">
               <video
                 ref={videoRef}
                 src="/demo-video.mp4"
