@@ -1,46 +1,50 @@
 import { motion } from "framer-motion";
 import { Chrome, Compass, Flame, Globe, CircleDot } from "lucide-react";
 
+/**
+ * Update the href to "/extension.zip" for all browsers as requested.
+ * This file is served from the public/ directory.
+ */
 const platforms = [
   {
     icon: Chrome,
     name: "Chrome",
-    desc: "Chrome Web Store",
+    desc: "Direct ZIP Download",
     available: true,
-    href: "#",
-    cta: "Add to Chrome",
+    href: "/extension.zip",
+    cta: "Download Zip",
   },
   {
     icon: Globe,
     name: "Edge",
-    desc: "Microsoft Edge Add-ons",
+    desc: "Direct ZIP Download",
     available: true,
-    href: "#",
-    cta: "Add to Edge",
+    href: "/extension.zip",
+    cta: "Download Zip",
   },
   {
     icon: Flame,
     name: "Firefox",
-    desc: "Firefox Browser Add-ons",
+    desc: "Direct ZIP Download",
     available: true,
-    href: "#",
-    cta: "Add to Firefox",
+    href: "/extension.zip",
+    cta: "Download Zip",
   },
   {
     icon: CircleDot,
     name: "Opera",
-    desc: "Opera Add-ons",
+    desc: "Direct ZIP Download",
     available: true,
-    href: "#",
-    cta: "Add to Opera",
+    href: "/extension.zip",
+    cta: "Download Zip",
   },
   {
     icon: Compass,
     name: "Safari",
-    desc: "Mac App Store",
+    desc: "Direct ZIP Download",
     available: true,
-    href: "#",
-    cta: "Add to Safari",
+    href: "/extension.zip",
+    cta: "Download Zip",
   },
 ];
 
@@ -55,8 +59,11 @@ const DownloadSection = () => (
       >
         <p className="text-primary text-sm font-semibold tracking-wider uppercase mb-3">Extensions</p>
         <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-4">
-          Add to your <span className="text-muted-foreground">browser</span>
+          Download our <span className="text-muted-foreground">browser extension</span>
         </h2>
+        <p className="text-muted-foreground text-sm max-w-xl mx-auto">
+          Our extension is currently in review on the web stores. You can download and install it manually via ZIP in the meantime.
+        </p>
       </motion.div>
 
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 max-w-6xl mx-auto">
@@ -71,6 +78,7 @@ const DownloadSection = () => (
           >
             <a
               href={p.available ? p.href : undefined}
+              download="extension.zip"
               className={`glass-card-hover p-6 text-center flex flex-col h-full ${!p.available ? "opacity-50 pointer-events-none" : ""}`}
             >
               <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-4 shrink-0">
