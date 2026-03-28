@@ -1,20 +1,60 @@
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+
 const Navbar = () => {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-card/40 backdrop-blur-xl border-b border-white/10 rounded-none">
-      <div className="container mx-auto flex items-center justify-between h-16 px-4">
-        <div className="flex items-center gap-2">
-          <img src="/logo.jpg" alt="PrivacyGuard AI Logo" className="w-8 h-8 rounded-lg object-cover" />
-          <span className="font-bold text-lg text-foreground">PrivacyGuard AI</span>
+    <motion.nav
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        scrolled 
+          ? "bg-card/60 backdrop-blur-2xl border-b border-white/10 py-3 shadow-2xl" 
+          : "bg-transparent py-5 border-b border-transparent"
+      }`}
+    >
+      <div className="container mx-auto flex items-center justify-between px-6">
+        <div className="flex items-center gap-3 group cursor-pointer">
+          <div className="relative">
+            <div className="absolute inset-0 bg-primary/20 blur-lg rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            <img src="/logo.jpg" alt="PrivacyGuard AI Logo" className="w-10 h-10 rounded-xl object-cover relative z-10 border border-white/10 transition-transform duration-500 group-hover:scale-110" />
+          </div>
+          <span className="font-black text-xl tracking-tighter text-white group-hover:glow-text transition-all duration-300">
+            PrivacyGuard <span className="text-white/60 group-hover:text-white transition-colors">AI</span>
+          </span>
         </div>
-        <div className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
-          <a href="#features" className="hover:text-foreground transition-colors">Features</a>
-          <a href="#how-it-works" className="hover:text-foreground transition-colors">How it Works</a>
-          <a href="#demo" className="hover:text-foreground transition-colors">Demo</a>
-          <a href="#download" className="hover:text-foreground transition-colors">Download</a>
+
+        <div className="hidden md:flex items-center gap-10 text-[13px] font-bold uppercase tracking-[0.2em] text-white/50">
+          {["Features", "How it Works", "Demo", "Download"].map((item) => (
+            <a
+              key={item}
+              href={`#${item.toLowerCase().replace(/\s+/g, "-")}`}
+              className="hover:text-white hover:glow-text active:scale-95 transition-all duration-300 relative group"
+            >
+              {item}
+              <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-primary transition-all duration-300 group-hover:w-full" />
+            </a>
+          ))}
         </div>
-        <a href="#download" className="glow-button text-sm px-4 py-2 rounded-lg">Get Started</a>
+
+        <div className="flex items-center gap-4">
+          <a href="#download" className="glow-button text-[12px] py-2.5 px-6 rounded-full group overflow-hidden relative">
+            <span className="relative z-10">Get Started</span>
+            <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
+          </a>
+        </div>
       </div>
-    </nav>
+    </motion.nav>
   );
 };
 

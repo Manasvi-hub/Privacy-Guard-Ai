@@ -32,101 +32,129 @@ const steps = [
 const HowItWorks = () => {
   const [activeStep, setActiveStep] = useState(0);
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: [0.23, 1, 0.32, 1],
+      },
+    },
+  };
+
   return (
-    <section id="how-it-works" className="section-padding">
-      <div className="container mx-auto px-4">
+    <section id="how-it-works" className="section-padding relative overflow-hidden bg-black/10">
+      <div className="container mx-auto px-6 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          transition={{ duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
+          className="text-center mb-20"
         >
-          <p className="text-primary text-sm font-semibold tracking-wider uppercase mb-3">How It Works</p>
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-foreground">
-            Four steps to{" "}
-            <span className="text-muted-foreground">total privacy</span>
+          <p className="text-primary text-[13px] font-bold tracking-[0.3em] uppercase mb-4">The Process</p>
+          <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-white">
+            Four steps to <br />
+            <span className="premium-gradient">Total Privacy Control</span>
           </h2>
         </motion.div>
 
         <div className="max-w-5xl mx-auto">
           {/* Step indicators */}
-          <div className="grid grid-cols-4 gap-2 mb-8 relative">
-            {/* Progress bar */}
-            <div className="absolute bottom-0 left-0 right-0 h-1 bg-border/50 rounded-full hidden md:block">
-              <motion.div
-                className="h-full bg-primary rounded-full"
-                animate={{ width: `${((activeStep + 1) / steps.length) * 100}%` }}
-                transition={{ duration: 0.5, ease: "easeInOut" }}
-              />
-            </div>
+          <motion.div 
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12 relative"
+          >
+            {/* Progress line */}
+            <div className="absolute top-1/2 left-0 right-0 h-[1px] bg-white/5 -translate-y-1/2 hidden md:block z-0" />
 
             {steps.map((step, i) => (
               <motion.button
                 key={step.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
+                variants={itemVariants}
                 onClick={() => setActiveStep(i)}
-                className={`text-center relative pb-6 group cursor-pointer transition-all duration-300 ${
-                  i <= activeStep ? "opacity-100" : "opacity-50"
+                className={`text-left md:text-center relative group cursor-pointer transition-all duration-500 ${
+                  i === activeStep ? "scale-105" : "opacity-40 grayscale hover:opacity-100 hover:grayscale-0"
                 }`}
               >
                 <div
-                  className={`w-16 h-16 md:w-20 md:h-20 rounded-2xl mx-auto mb-3 flex items-center justify-center relative z-10 transition-all duration-300 ${
+                  className={`w-20 h-20 md:w-24 md:h-24 rounded-3xl mx-auto mb-6 flex items-center justify-center relative z-10 transition-all duration-500 ${
                     i === activeStep
-                      ? "bg-primary text-primary-foreground shadow-lg shadow-primary/25"
-                      : "glass-card group-hover:border-primary/30"
+                      ? "bg-primary text-white shadow-[0_20px_40px_rgba(var(--primary),0.3)] border border-white/20"
+                      : "glass-card-hover border-white/5"
                   }`}
                 >
-                  <step.icon className={`w-6 h-6 md:w-7 md:h-7 ${i === activeStep ? "text-primary-foreground" : "text-primary"}`} />
+                  <step.icon className={`w-8 h-8 transition-transform duration-500 group-hover:scale-110 ${i === activeStep ? "text-white" : "text-primary"}`} />
                   <span
-                    className={`absolute -top-2 -right-2 w-6 h-6 rounded-full text-xs font-bold flex items-center justify-center ${
+                    className={`absolute -top-3 -right-3 w-8 h-8 rounded-full text-[10px] font-black flex items-center justify-center border-2 border-background z-20 ${
                       i === activeStep
-                        ? "bg-foreground text-background"
-                        : "bg-primary/10 text-primary"
+                        ? "bg-white text-primary"
+                        : "bg-primary text-white"
                     }`}
                   >
-                    {i + 1}
+                    0{i + 1}
                   </span>
                 </div>
-                <h3 className={`font-semibold text-sm md:text-base transition-colors ${i === activeStep ? "text-foreground" : "text-muted-foreground"}`}>
+                <h3 className={`font-black text-xs uppercase tracking-widest transition-colors text-center ${i === activeStep ? "text-white" : "text-white/40"}`}>
                   {step.title}
                 </h3>
               </motion.button>
             ))}
-          </div>
+          </motion.div>
 
           {/* Active step detail */}
           <AnimatePresence mode="wait">
             <motion.div
               key={activeStep}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.3 }}
-              className="glass-card p-8 md:p-10"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
+              className="glass-card-hover p-10 md:p-14 relative overflow-hidden group"
             >
-              <div className="flex flex-col md:flex-row items-start gap-6">
-                <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-[100px] -mr-32 -mt-32 pointer-events-none" />
+              
+              <div className="flex flex-col md:flex-row items-center md:items-start gap-10 relative z-10">
+                <div className="w-20 h-20 rounded-[2rem] bg-primary/20 flex items-center justify-center shrink-0 border border-primary/20 shadow-inner">
                   {(() => {
                     const Icon = steps[activeStep].icon;
-                    return <Icon className="w-7 h-7 text-primary" />;
+                    return <Icon className="w-10 h-10 text-primary" />;
                   })()}
                 </div>
-                <div className="flex-1">
-                  <h3 className="text-xl md:text-2xl font-bold text-foreground mb-2">
-                    Step {activeStep + 1}: {steps[activeStep].title}
+                <div className="flex-1 text-center md:text-left">
+                  <span className="text-primary text-[10px] uppercase font-black tracking-widest mb-2 block">Phase 0{activeStep + 1}</span>
+                  <h3 className="text-3xl md:text-4xl font-black text-white mb-4 tracking-tighter">
+                    {steps[activeStep].title}
                   </h3>
-                  <p className="text-muted-foreground mb-3">{steps[activeStep].desc}</p>
-                  <p className="text-sm text-muted-foreground/80 italic">{steps[activeStep].detail}</p>
+                  <p className="text-lg md:text-xl text-white/60 mb-6 font-medium leading-relaxed max-w-2xl">
+                    {steps[activeStep].desc}
+                  </p>
+                  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/5 text-[12px] font-bold text-white/40">
+                    <ChevronRight className="w-3 h-3 text-primary" />
+                    {steps[activeStep].detail}
+                  </div>
                 </div>
                 {activeStep < steps.length - 1 && (
                   <button
                     onClick={() => setActiveStep((s) => s + 1)}
-                    className="glow-button flex items-center gap-1 px-4 py-2 rounded-lg text-sm shrink-0"
+                    className="glow-button flex items-center gap-2 px-8 py-4 rounded-2xl text-sm shrink-0 uppercase tracking-widest font-black self-center md:self-start group"
                   >
-                    Next <ChevronRight className="w-4 h-4" />
+                    Proceed <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </button>
                 )}
               </div>

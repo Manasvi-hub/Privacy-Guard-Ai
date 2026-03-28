@@ -24,42 +24,71 @@ const features = [
   },
 ];
 
-const FeaturesSection = () => (
-  <section id="features" className="section-padding">
-    <div className="container mx-auto px-4">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="text-center mb-16"
-      >
-        <p className="text-primary text-sm font-semibold tracking-wider uppercase mb-3">Features</p>
-        <h2 className="text-3xl md:text-5xl font-bold tracking-tight">
-          Enterprise-grade protection,{" "}
-          <span className="text-muted-foreground">zero complexity</span>
-        </h2>
-      </motion.div>
+const FeaturesSection = () => {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-        {features.map((f, i) => (
-          <motion.div
-            key={f.title}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: i * 0.1 }}
-            className="glass-card-hover p-8 group"
-          >
-            <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors">
-              <f.icon className="w-6 h-6 text-primary" />
-            </div>
-            <h3 className="text-lg font-semibold mb-2 text-foreground">{f.title}</h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
-          </motion.div>
-        ))}
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: [0.23, 1, 0.32, 1],
+      },
+    },
+  };
+
+  return (
+    <section id="features" className="section-padding relative overflow-hidden">
+      <div className="container mx-auto px-6 relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
+          className="text-center mb-24"
+        >
+          <p className="text-primary text-[13px] font-bold tracking-[0.3em] uppercase mb-4">Core Capabilities</p>
+          <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-white">
+            Enterprise-grade protection, <br />
+            <span className="premium-gradient">zero complexity</span>
+          </h2>
+        </motion.div>
+
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto"
+        >
+          {features.map((f, i) => (
+            <motion.div
+              key={f.title}
+              variants={itemVariants}
+              className="glass-card-hover p-10 group relative overflow-hidden"
+            >
+              <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-3xl -mr-16 -mt-16 group-hover:bg-primary/10 transition-colors" />
+              <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-8 group-hover:bg-primary/20 transition-all duration-500 group-hover:rotate-6">
+                <f.icon className="w-8 h-8 text-primary transition-transform duration-500 group-hover:scale-110" />
+              </div>
+              <h3 className="text-xl font-bold mb-3 text-white group-hover:glow-text transition-all duration-300">{f.title}</h3>
+              <p className="text-base text-white/50 leading-relaxed font-medium">{f.desc}</p>
+            </motion.div>
+          ))}
+        </motion.div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 export default FeaturesSection;
