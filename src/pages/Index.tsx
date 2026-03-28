@@ -5,6 +5,7 @@ import FeaturesSection from "@/components/FeaturesSection";
 import HowItWorks from "@/components/HowItWorks";
 import InteractiveDemo from "@/components/InteractiveDemo";
 import DownloadSection from "@/components/DownloadSection";
+import ProcessStepGuide from "@/components/ProcessStepGuide";
 import IDEDownloadSection from "@/components/IDEDownloadSection";
 import Footer from "@/components/Footer";
 
@@ -17,6 +18,7 @@ const Index = () => (
     <HowItWorks />
     <InteractiveDemo />
     <DownloadSection />
+    <ProcessStepGuide />
     <IDEDownloadSection />
     <Footer />
   </div>
