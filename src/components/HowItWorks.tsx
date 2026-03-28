@@ -64,7 +64,7 @@ const HowItWorks = () => {
           transition={{ duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
           className="text-center mb-20"
         >
-          <p className="text-primary text-[13px] font-bold tracking-[0.3em] uppercase mb-4">The Process</p>
+          <p className="text-[#a78bfa] text-[13px] font-bold tracking-[0.3em] uppercase mb-4">The Process</p>
           <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-white">
             Four steps to <br />
             <span className="premium-gradient">Total Privacy Control</span>
@@ -89,22 +89,22 @@ const HowItWorks = () => {
                 variants={itemVariants}
                 onClick={() => setActiveStep(i)}
                 className={`text-left md:text-center relative group cursor-pointer transition-all duration-500 ${
-                  i === activeStep ? "scale-105" : "opacity-40 grayscale hover:opacity-100 hover:grayscale-0"
+                  i === activeStep ? "scale-105" : "opacity-60 hover:opacity-100"
                 }`}
               >
                 <div
                   className={`w-20 h-20 md:w-24 md:h-24 rounded-3xl mx-auto mb-6 flex items-center justify-center relative z-10 transition-all duration-500 ${
                     i === activeStep
-                      ? "bg-primary text-white shadow-[0_20px_40px_rgba(var(--primary),0.3)] border border-white/20"
-                      : "glass-card-hover border-white/5"
+                      ? "bg-[#7c3aed] text-white shadow-[0_20px_40px_rgba(124,58,237,0.35)] border border-[#a78bfa]/30"
+                      : "glass-card border-white/[0.06]"
                   }`}
                 >
-                  <step.icon className={`w-8 h-8 transition-transform duration-500 group-hover:scale-110 ${i === activeStep ? "text-white" : "text-primary"}`} />
+                  <step.icon className={`w-8 h-8 transition-transform duration-500 group-hover:scale-110 ${i === activeStep ? "text-white" : "text-[#a78bfa]"}`} />
                   <span
                     className={`absolute -top-3 -right-3 w-8 h-8 rounded-full text-[10px] font-black flex items-center justify-center border-2 border-background z-20 ${
                       i === activeStep
-                        ? "bg-white text-primary"
-                        : "bg-primary text-white"
+                        ? "bg-white text-[#7c3aed]"
+                        : "bg-[#7c3aed]/80 text-white"
                     }`}
                   >
                     0{i + 1}
@@ -127,7 +127,7 @@ const HowItWorks = () => {
               transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
               className="glass-card-hover p-10 md:p-14 relative overflow-hidden group"
             >
-              <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-[100px] -mr-32 -mt-32 pointer-events-none" />
+              <div className="absolute top-0 right-0 w-64 h-64 bg-[#a78bfa]/8 rounded-full blur-[100px] -mr-32 -mt-32 pointer-events-none" />
               
               <div className="flex flex-col md:flex-row items-center md:items-start gap-10 relative z-10">
                 <div className="w-20 h-20 rounded-[2rem] bg-primary/20 flex items-center justify-center shrink-0 border border-primary/20 shadow-inner">

@@ -57,7 +57,7 @@ const FeaturesSection = () => {
           transition={{ duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
           className="text-center mb-24"
         >
-          <p className="text-primary text-[13px] font-bold tracking-[0.3em] uppercase mb-4">Core Capabilities</p>
+          <p className="text-[#a78bfa] text-[13px] font-bold tracking-[0.3em] uppercase mb-4">Core Capabilities</p>
           <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-white">
             Enterprise-grade protection, <br />
             <span className="premium-gradient">zero complexity</span>
@@ -77,12 +77,12 @@ const FeaturesSection = () => {
               variants={itemVariants}
               className="glass-card-hover p-10 group relative overflow-hidden"
             >
-              <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-3xl -mr-16 -mt-16 group-hover:bg-primary/10 transition-colors" />
-              <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-8 group-hover:bg-primary/20 transition-all duration-500 group-hover:rotate-6">
-                <f.icon className="w-8 h-8 text-primary transition-transform duration-500 group-hover:scale-110" />
+              <div className="absolute top-0 right-0 w-40 h-40 bg-[#a78bfa]/10 rounded-full blur-[80px] -mr-20 -mt-20 group-hover:bg-[#a78bfa]/20 transition-colors duration-700" />
+              <div className="w-14 h-14 rounded-2xl bg-white/[0.06] border border-white/[0.08] flex items-center justify-center mb-8 group-hover:bg-[#a78bfa]/20 group-hover:border-[#a78bfa]/30 transition-all duration-500">
+                <f.icon className="w-7 h-7 text-[#a78bfa] transition-all duration-500 group-hover:scale-110 group-hover:text-white" />
               </div>
-              <h3 className="text-xl font-bold mb-3 text-white group-hover:glow-text transition-all duration-300">{f.title}</h3>
-              <p className="text-base text-white/50 leading-relaxed font-medium">{f.desc}</p>
+              <h3 className="text-xl font-bold mb-3 text-white">{f.title}</h3>
+              <p className="text-[15px] text-white/45 leading-relaxed font-medium">{f.desc}</p>
             </motion.div>
           ))}
         </motion.div>
