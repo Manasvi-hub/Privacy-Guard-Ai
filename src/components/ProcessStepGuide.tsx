@@ -10,7 +10,7 @@ const steps = [
   },
   {
     number: 2,
-    title: "Extract the ZIP",
+    title: "Extract The ZIP",
     desc: "Unzip 'extension.zip' into a folder on your system.",
     position: "bottom" as const,
   },
@@ -35,7 +35,6 @@ const ProcessStepGuide = () => {
     offset: ["start end", "end start"],
   });
 
-  // Smooth out the scroll progress for a more professional feel
   const smoothProgress = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
@@ -45,10 +44,11 @@ const ProcessStepGuide = () => {
   const pathLength = useTransform(smoothProgress, [0, 1], [0, 1]);
 
   const cardVariants = {
-    hidden: { opacity: 0, scale: 0.9 },
+    hidden: { opacity: 0, scale: 0.9, y: 0 },
     visible: (i: number) => ({
       opacity: 1,
       scale: 1,
+      y: 0,
       transition: {
         delay: i * 0.15,
         duration: 0.5,
@@ -60,15 +60,15 @@ const ProcessStepGuide = () => {
   return (
     <section id="process-guide" className="section-padding py-32 bg-secondary/5 overflow-hidden">
       <div className="container mx-auto px-4 text-center mb-24">
-        <h2 className="text-3xl md:text-5xl font-black tracking-tight mb-4 text-white">
-          4 step guide for <span className="text-secondary text-transparent bg-clip-text bg-gradient-to-r from-secondary to-primary">extension installation</span>
+        <h2 className="text-3xl md:text-5xl font-black tracking-tight mb-4 text-white capitalize">
+          4 Step Guide For Extension Installation
         </h2>
         <p className="text-muted-foreground max-w-2xl mx-auto">
           Follow our visually-guided installation sequence to manually load the extension bundle.
         </p>
       </div>
 
-      <div ref={containerRef} className="max-w-6xl mx-auto relative px-4 min-h-[600px] flex items-center">
+      <div ref={containerRef} className="max-w-6xl mx-auto relative px-4 min-h-[650px] flex items-center">
         {/* Desktop S-Curve Path */}
         <div className="hidden md:block absolute inset-0 w-full h-full pointer-events-none overflow-visible">
           <svg width="100%" height="100%" viewBox="0 0 1000 400" fill="none" className="overflow-visible">
@@ -99,39 +99,60 @@ const ProcessStepGuide = () => {
         </div>
 
         {/* Steps Content */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-20 md:gap-0 w-full relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-24 md:gap-0 w-full relative z-10">
           {steps.map((step, i) => (
-            <div key={i} className="relative flex flex-col items-start md:items-center">
-              {/* Step Marker (Circle) */}
-              <motion.div
-                initial={{ scale: 0, opacity: 0 }}
-                whileInView={{ scale: 1, opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.4 }}
-                className="w-14 h-14 rounded-full bg-secondary text-white font-black flex items-center justify-center shadow-[0_0_30px_rgba(var(--secondary),0.3)] z-20 relative md:absolute md:top-1/2 md:-translate-y-1/2"
-              >
-                {step.number}
-                <div className="absolute inset-0 bg-secondary blur-xl opacity-30 animate-pulse rounded-full -z-10" />
-              </motion.div>
+            <div key={i} className="relative flex flex-col items-start md:items-center h-full">
+              
+              {/* Desktop Layout (Alternating Top/Bottom with clear separation) */}
+              <div className="hidden md:flex flex-col items-center w-full min-h-[500px] justify-center relative">
+                
+                {/* Text Card (Above or Below) */}
+                <motion.div
+                  custom={i}
+                  variants={cardVariants}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  className={`absolute w-full max-w-[220px] 
+                    ${step.position === 'top' ? 'bottom-[280px]' : 'top-[280px]'}`}
+                >
+                  <div className="glass-card p-5 border-white/10 hover:border-secondary/40 transition-all bg-black/60 backdrop-blur-xl shadow-2xl rounded-2xl">
+                     <h3 className="text-lg font-bold text-white mb-3 leading-tight">{step.title}</h3>
+                     <p className="text-[12px] text-muted-foreground/90 leading-relaxed font-semibold">
+                       {step.desc}
+                     </p>
+                  </div>
+                </motion.div>
 
-              {/* Step Info */}
-              <motion.div
-                custom={i}
-                variants={cardVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                className={`flex flex-col items-start md:items-center text-left md:text-center max-w-[220px] pt-4 md:pt-0
-                    ${step.position === 'top' ? 'md:-translate-y-48' : 'md:translate-y-48'}
-                    md:absolute md:top-1/2 md:-mt-6`}
-              >
-                <div className="glass-card p-4 border-white/10 hover:border-secondary/30 transition-colors bg-black/40 backdrop-blur-md">
-                   <h3 className="text-lg font-bold text-white mb-2 leading-tight">{step.title}</h3>
-                   <p className="text-[11px] text-muted-foreground/80 leading-relaxed font-semibold">
-                     {step.desc}
-                   </p>
-                </div>
-              </motion.div>
+                {/* Numbered Marker (Center) */}
+                <motion.div
+                  initial={{ scale: 0, opacity: 0 }}
+                  whileInView={{ scale: 1, opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1, duration: 0.4 }}
+                  className="w-16 h-16 rounded-full bg-secondary text-white font-black text-xl flex items-center justify-center shadow-[0_0_40px_rgba(var(--secondary),0.4)] z-20 relative border-4 border-black/20"
+                >
+                  {step.number}
+                  <div className="absolute inset-0 bg-secondary blur-2xl opacity-40 animate-pulse rounded-full -z-10" />
+                </motion.div>
+              </div>
+
+              {/* Mobile Layout (Standard Stack) */}
+              <div className="md:hidden flex flex-col items-start pl-16">
+                 <motion.div
+                   initial={{ scale: 0, opacity: 0 }}
+                   whileInView={{ scale: 1, opacity: 1 }}
+                   viewport={{ once: true }}
+                   className="w-12 h-12 rounded-full bg-secondary text-white font-black flex items-center justify-center mb-4"
+                 >
+                   {step.number}
+                 </motion.div>
+                 <div className="glass-card p-4 border-white/10 bg-black/40 backdrop-blur-md">
+                   <h3 className="text-lg font-bold text-white mb-2">{step.title}</h3>
+                   <p className="text-sm text-muted-foreground leading-relaxed">{step.desc}</p>
+                 </div>
+              </div>
+
             </div>
           ))}
         </div>
