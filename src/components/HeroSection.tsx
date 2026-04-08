@@ -98,12 +98,13 @@ const HeroSection = () => {
               variants={itemVariants}
               className="flex flex-col sm:flex-row items-center justify-center gap-6 w-full"
             >
-              <a href="#download" className="glow-button flex items-center gap-3 text-base px-10 py-5 rounded-2xl group min-w-[240px]">
+              <a data-ripple href="#download" className="glow-button flex items-center gap-3 text-base px-10 py-5 rounded-2xl group min-w-[240px]">
                 <ShieldCheck className="w-6 h-6 group-hover:scale-110 transition-transform" />
                 <span>Add to Browser — Free</span>
               </a>
               <button
                 onClick={() => setShowVideo(true)}
+                data-ripple
                 className="flex items-center gap-3 text-white/70 hover:text-white transition-all px-8 py-5 glass-card-hover rounded-2xl cursor-pointer group min-w-[200px]"
               >
                 <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-primary/20 transition-colors">

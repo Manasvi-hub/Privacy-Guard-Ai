@@ -195,6 +195,55 @@
     }
   }
 
+  /* Ripple effect for click/tap micro-interactions */
+  [data-ripple] {
+    position: relative;
+    overflow: hidden;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .ripple-el {
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    pointer-events: none;
+    background: radial-gradient(circle, rgba(255,255,255,0.24) 0%, rgba(255,255,255,0.12) 30%, rgba(255,255,255,0.04) 60%, transparent 100%);
+    will-change: transform, opacity;
+    animation: ripple 600ms var(--ease-standard);
+    opacity: 0.9;
+  }
+
+  @keyframes ripple {
+    0% { transform: translate(-50%, -50%) scale(0); opacity: 0.9; }
+    100% { transform: translate(-50%, -50%) scale(4); opacity: 0; }
+  }
+
+  /* Micro-interactions for main CTAs */
+  .glow-button {
+    will-change: transform, box-shadow;
+    transition: transform 220ms var(--ease-standard), box-shadow 220ms var(--ease-standard), opacity 160ms ease;
+    transform: translateZ(0);
+  }
+
+  .glow-button:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 12px 40px rgba(255,255,255,0.12), 0 8px 24px rgba(0,0,0,0.25);
+  }
+
+  .glow-button:active {
+    transform: translateY(-1px) scale(0.99);
+  }
+
+  .glow-button:focus-visible {
+    box-shadow: 0 0 0 6px rgba(167,139,250,0.10), 0 10px 30px rgba(0,0,0,0.25);
+  }
+
+  .glass-card-hover {
+    will-change: transform;
+  }
+
   /* Section dividers */
   .section-divider {
     height: 1px;

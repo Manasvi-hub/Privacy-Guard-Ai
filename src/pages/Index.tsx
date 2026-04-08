@@ -26,6 +26,30 @@ const Index = () => {
     restDelta: 0.001,
   });
 
+  React.useEffect(() => {
+    const handler = (e: any) => {
+      try {
+        const el = (e.target as HTMLElement).closest?.('[data-ripple]') as HTMLElement | null;
+        if (!el) return;
+        const rect = el.getBoundingClientRect();
+        const x = (e.clientX ?? 0) - rect.left;
+        const y = (e.clientY ?? 0) - rect.top;
+        const ripple = document.createElement('span');
+        ripple.className = 'ripple-el';
+        const size = Math.max(rect.width, rect.height) * 1.4;
+        ripple.style.width = ripple.style.height = `${size}px`;
+        ripple.style.left = `${x}px`;
+        ripple.style.top = `${y}px`;
+        el.appendChild(ripple);
+        window.setTimeout(() => ripple.remove(), 700);
+      } catch (err) {
+        // ignore
+      }
+    };
+    document.addEventListener('pointerdown', handler, { passive: true });
+    return () => document.removeEventListener('pointerdown', handler as any);
+  }, []);
+
   return (
     <div className="min-h-screen relative">
       {/* Scroll Progress Indicator */}

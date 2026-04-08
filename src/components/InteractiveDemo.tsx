@@ -183,6 +183,7 @@ const InteractiveDemo = () => {
                 />
                 <button
                   onClick={() => handleSend()}
+                  data-ripple
                   className="glow-button px-5 py-3.5 rounded-xl group"
                 >
                   <Send className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
@@ -197,6 +198,7 @@ const InteractiveDemo = () => {
               <button
                 key={i}
                 onClick={() => handleSend(msg)}
+                data-ripple
                 className="text-[11px] font-bold text-white/30 hover:text-white glass-card-hover px-5 py-2.5 transition-all cursor-pointer uppercase tracking-[0.15em]"
               >
                 Example {i + 1}

@@ -48,7 +48,7 @@ const Navbar = () => {
         </div>
 
         <div className="flex items-center gap-4">
-          <a href="#download" className="glow-button text-[12px] py-2.5 px-6 rounded-full group overflow-hidden relative">
+          <a data-ripple href="#download" className="glow-button text-[12px] py-2.5 px-6 rounded-full group overflow-hidden relative">
             <span className="relative z-10">Get Started</span>
             <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
           </a>
