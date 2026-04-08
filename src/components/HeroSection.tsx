@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, Suspense, lazy } from "react";
 import { Play, ShieldCheck, Lock, Fingerprint } from "lucide-react";
 import { motion } from "framer-motion";
-import VideoModal from "./VideoModal";
+const VideoModal = lazy(() => import("./VideoModal"));
 
 const HeroSection = () => {
   const [showVideo, setShowVideo] = useState(false);
@@ -44,6 +44,7 @@ const HeroSection = () => {
           }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
           className="absolute top-1/4 -left-20 w-[500px] h-[500px] bg-primary/20 rounded-full blur-[140px] pointer-events-none" 
+          style={{ willChange: "transform" }}
         />
         <motion.div 
           animate={{ 
@@ -145,7 +146,7 @@ const HeroSection = () => {
               >
                 <div className="w-56 h-56 md:w-80 md:h-80 rounded-[3rem] bg-gradient-to-br from-white/10 via-primary/5 to-transparent flex items-center justify-center backdrop-blur-lg border border-white/10 shadow-[0_40px_100px_-20px_rgba(33,28,68,0.6)] group-hover:border-primary/30 transition-colors duration-700">
                   <div className="w-40 h-40 md:w-56 md:h-56 rounded-[2rem] bg-card/60 flex items-center justify-center border border-white/5 overflow-hidden relative shadow-inner">
-                    <img src="/logo.jpg" alt="PrivacyGuard AI Logo" className="w-full h-full object-cover scale-105 group-hover:scale-110 transition-transform duration-1000" />
+                    <img loading="eager" decoding="sync" src="/logo.jpg" alt="PrivacyGuard AI Logo" className="w-full h-full object-cover scale-105 group-hover:scale-110 transition-transform duration-1000" />
                     <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-transparent mix-blend-overlay" />
                   </div>
                 </div>
@@ -163,7 +164,9 @@ const HeroSection = () => {
         </div>
       </section>
 
-      <VideoModal isOpen={showVideo} onClose={() => setShowVideo(false)} />
+      <Suspense fallback={null}>
+        <VideoModal isOpen={showVideo} onClose={() => setShowVideo(false)} />
+      </Suspense>
     </>
   );
 };

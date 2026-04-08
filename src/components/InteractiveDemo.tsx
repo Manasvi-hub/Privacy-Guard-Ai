@@ -91,7 +91,7 @@ const InteractiveDemo = () => {
                 <div className="w-3 h-3 rounded-full bg-green-500/60" />
               </div>
               <div className="flex items-center gap-2 ml-4">
-                <img src="/logo.jpg" alt="" className="w-5 h-5 rounded-lg object-cover border border-white/10" />
+                <img loading="lazy" src="/logo.jpg" alt="" className="w-5 h-5 rounded-lg object-cover border border-white/10" />
                 <span className="text-sm font-bold text-white/80 tracking-tight">PrivacyGuard Terminal</span>
               </div>
               <span className="ml-auto text-[10px] text-primary bg-primary/10 px-3 py-1 rounded-full font-black uppercase tracking-[0.2em] border border-primary/20">

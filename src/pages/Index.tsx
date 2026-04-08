@@ -1,14 +1,16 @@
+import React, { Suspense, lazy } from "react";
 import { motion, useScroll, useSpring } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import TrustBar from "@/components/TrustBar";
 import FeaturesSection from "@/components/FeaturesSection";
 import HowItWorks from "@/components/HowItWorks";
-import InteractiveDemo from "@/components/InteractiveDemo";
-import DownloadSection from "@/components/DownloadSection";
 import ProcessStepGuide from "@/components/ProcessStepGuide";
-import IDEDownloadSection from "@/components/IDEDownloadSection";
 import Footer from "@/components/Footer";
+
+const InteractiveDemo = lazy(() => import("@/components/InteractiveDemo"));
+const DownloadSection = lazy(() => import("@/components/DownloadSection"));
+const IDEDownloadSection = lazy(() => import("@/components/IDEDownloadSection"));
 
 const SectionDivider = () => (
   <div className="section-divider mx-auto max-w-4xl" />
@@ -41,13 +43,19 @@ const Index = () => {
       <SectionDivider />
       <HowItWorks />
       <SectionDivider />
-      <InteractiveDemo />
+      <Suspense fallback={<div className="max-w-3xl mx-auto p-12 text-center text-white/30">Loading demo…</div>}>
+        <InteractiveDemo />
+      </Suspense>
       <SectionDivider />
-      <DownloadSection />
+      <Suspense fallback={<div className="max-w-3xl mx-auto p-12 text-center text-white/30">Loading download section…</div>}>
+        <DownloadSection />
+      </Suspense>
       <SectionDivider />
       <ProcessStepGuide />
       <SectionDivider />
-      <IDEDownloadSection />
+      <Suspense fallback={<div className="max-w-3xl mx-auto p-12 text-center text-white/30">Loading IDE download…</div>}>
+        <IDEDownloadSection />
+      </Suspense>
       <Footer />
     </div>
   );
