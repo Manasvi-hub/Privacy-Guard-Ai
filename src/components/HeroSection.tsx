@@ -1,10 +1,45 @@
-import { useState, Suspense, lazy } from "react";
+import { useState, Suspense, lazy, useRef, useEffect } from "react";
 import { Play, ShieldCheck, Lock, Fingerprint } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 const VideoModal = lazy(() => import("./VideoModal"));
 
 const HeroSection = () => {
   const [showVideo, setShowVideo] = useState(false);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const shieldRef = useRef<HTMLDivElement | null>(null);
+  const targetRef = useRef({ x: 0, y: 0 });
+  const currentRef = useRef({ x: 0, y: 0 });
+  const rafRef = useRef<number | null>(null);
+  const reduceMotion = useReducedMotion();
+
+  useEffect(() => {
+    if (reduceMotion) return;
+    const el = containerRef.current;
+    if (!el) return;
+    const onMove = (e: PointerEvent) => {
+      const rect = el.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      targetRef.current.x = x;
+      targetRef.current.y = y;
+    };
+    const animate = () => {
+      currentRef.current.x += (targetRef.current.x - currentRef.current.x) * 0.12;
+      currentRef.current.y += (targetRef.current.y - currentRef.current.y) * 0.12;
+      const tx = currentRef.current.x * 14;
+      const ty = currentRef.current.y * 12;
+      if (shieldRef.current) {
+        shieldRef.current.style.transform = `translate3d(${tx}px, ${ty}px, 0)`;
+      }
+      rafRef.current = requestAnimationFrame(animate);
+    };
+    el.addEventListener("pointermove", onMove, { passive: true });
+    rafRef.current = requestAnimationFrame(animate);
+    return () => {
+      el.removeEventListener("pointermove", onMove as any);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+  }, [reduceMotion]);
 
   const containerVariants = {
     hidden: { opacity: 0 },
