@@ -12,6 +12,8 @@ const InteractiveDemo = lazy(() => import("@/components/InteractiveDemo"));
 const DownloadSection = lazy(() => import("@/components/DownloadSection"));
 const IDEDownloadSection = lazy(() => import("@/components/IDEDownloadSection"));
 
+import SkeletonDemo from "@/components/Skeletons";
+
 const SectionDivider = () => (
   <div className="section-divider mx-auto max-w-4xl" />
 );
@@ -43,17 +45,17 @@ const Index = () => {
       <SectionDivider />
       <HowItWorks />
       <SectionDivider />
-      <Suspense fallback={<div className="max-w-3xl mx-auto p-12 text-center text-white/30">Loading demo…</div>}>
+      <Suspense fallback={<SkeletonDemo />}>
         <InteractiveDemo />
       </Suspense>
       <SectionDivider />
-      <Suspense fallback={<div className="max-w-3xl mx-auto p-12 text-center text-white/30">Loading download section…</div>}>
+      <Suspense fallback={<SkeletonDemo />}>
         <DownloadSection />
       </Suspense>
       <SectionDivider />
       <ProcessStepGuide />
       <SectionDivider />
-      <Suspense fallback={<div className="max-w-3xl mx-auto p-12 text-center text-white/30">Loading IDE download…</div>}>
+      <Suspense fallback={<SkeletonDemo />}>
         <IDEDownloadSection />
       </Suspense>
       <Footer />
