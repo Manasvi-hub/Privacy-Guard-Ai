@@ -10,6 +10,7 @@ const HeroSection = () => {
   const targetRef = useRef({ x: 0, y: 0 });
   const currentRef = useRef({ x: 0, y: 0 });
   const rafRef = useRef<number | null>(null);
+  const userInteractedRef = useRef(false);
   const reduceMotion = useReducedMotion();
 
   useEffect(() => {
@@ -129,18 +130,7 @@ const HeroSection = () => {
             animate="visible"
             className="flex flex-col items-center text-center max-w-5xl mx-auto"
           >
-            {/* Premium Badge */}
-            <motion.div
-              variants={itemVariants}
-              className="inline-flex items-center gap-2.5 glass-card-hover px-5 py-2.5 mb-10 text-[13px] font-bold tracking-widest text-primary-foreground/90 uppercase border-white/5"
-            >
-              <div className="flex -space-x-2">
-                {[1, 2, 3].map((i) => (
-                  <div key={i} className="w-5 h-5 rounded-full border-2 border-background bg-primary/40 backdrop-blur-sm" />
-                ))}
-              </div>
-              <span className="ml-1">Trusted by 50,000+ privacy-first users</span>
-            </motion.div>
+            {/* Premium Badge removed per request */}
 
             {/* Industrial Headline */}
             <motion.h1
@@ -170,7 +160,10 @@ const HeroSection = () => {
                 <span>Add to Browser — Free</span>
               </a>
               <button
-                onClick={() => setShowVideo(true)}
+                onClick={() => {
+                  userInteractedRef.current = true;
+                  setShowVideo(true);
+                }}
                 data-ripple
                 className="flex items-center gap-3 text-white/70 hover:text-white transition-all px-8 py-5 glass-card-hover rounded-2xl cursor-pointer group min-w-[200px]"
               >
@@ -232,11 +225,28 @@ const HeroSection = () => {
         </div>
       </section>
 
-      <Suspense fallback={null}>
-        <VideoModal isOpen={showVideo} onClose={() => setShowVideo(false)} />
-      </Suspense>
+        <Suspense fallback={null}>
+          <VideoModal isOpen={showVideo} onClose={() => setShowVideo(false)} />
+        </Suspense>
+
+        {/* Autoplay demo after 5s on first open (respecting reduced-motion) */}
+        {typeof window !== 'undefined' && (
+          <AutoplayHandler reduceMotion={reduceMotion} onAutoplay={() => {
+            if (!userInteractedRef.current) setShowVideo(true);
+          }} />
+        )}
     </>
   );
 };
 
-export default HeroSection;
+  export default HeroSection;
+
+  // Small client-only component to manage autoplay timing so we keep HeroSection logic tidy
+  function AutoplayHandler({ reduceMotion, onAutoplay }: { reduceMotion: boolean; onAutoplay: () => void }) {
+    useEffect(() => {
+      if (reduceMotion) return;
+      const t = setTimeout(() => onAutoplay(), 5000);
+      return () => clearTimeout(t);
+    }, [reduceMotion, onAutoplay]);
+    return null;
+  }
