@@ -7,6 +7,7 @@ import FeaturesSection from "@/components/FeaturesSection";
 import HowItWorks from "@/components/HowItWorks";
 import ProcessStepGuide from "@/components/ProcessStepGuide";
 import Footer from "@/components/Footer";
+import PartnerCenterSection from "@/components/PartnerCenterSection";
 
 const InteractiveDemo = lazy(() => import("@/components/InteractiveDemo"));
 const DownloadSection = lazy(() => import("@/components/DownloadSection"));
@@ -91,6 +92,8 @@ const Index = () => {
       <Suspense fallback={<SkeletonDemo />}>
         <InteractiveDemo />
       </Suspense>
+      <SectionDivider />
+      <PartnerCenterSection />
       <SectionDivider />
       <Suspense fallback={<SkeletonDemo />}>
         <DownloadSection />
