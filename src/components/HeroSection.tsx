@@ -247,11 +247,15 @@ const HeroSection = () => {
   export default HeroSection;
 
   // Small client-only component to manage autoplay timing so we keep HeroSection logic tidy
+  // Autoplay will trigger after a short delay between 5-7 seconds (randomized) unless
+  // the user prefers reduced motion or interacts with the page first.
   function AutoplayHandler({ reduceMotion, onAutoplay }: { reduceMotion: boolean; onAutoplay: () => void }) {
     useEffect(() => {
       if (reduceMotion) return;
-      // Wait 5 minutes (300,000 ms) before autoplaying demo
-      const t = setTimeout(() => onAutoplay(), 300000);
+      const min = 5000;
+      const max = 7000;
+      const delay = Math.floor(min + Math.random() * (max - min));
+      const t = setTimeout(() => onAutoplay(), delay);
       return () => clearTimeout(t);
     }, [reduceMotion, onAutoplay]);
     return null;
