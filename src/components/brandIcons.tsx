@@ -104,10 +104,7 @@ export const Chrome: React.FC<IconProps> = ({ className, size, alt }) => (
 );
 
 export const Edge: React.FC<IconProps> = ({ className, size, alt }) => (
-  // Use inline Edge SVG to ensure consistent rendering across themes/browsers.
-  // The official `/public/brands/edge.svg` is still available, but some clients
-  // can render external SVGs differently. Inline ensures visual parity.
-  return <EdgeSVG className={className} width={size ?? 24} height={size ?? 24} />;
+  <ImgWithFallback src="/brands/edge.svg" alt={alt ?? "Edge"} fallback={<EdgeSVG />} className={className} size={size} />
 );
 
 export const Firefox: React.FC<IconProps> = ({ className, size, alt }) => (

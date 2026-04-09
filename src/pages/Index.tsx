@@ -60,7 +60,12 @@ const Index = () => {
   // mid-page landing caused by browser restore or in-page anchors.
   useEffect(() => {
     try {
-      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+      // Run several scroll resets at different micro-timings to counter
+      // late layout shifts or bfcache restore behavior.
+      window.scrollTo(0, 0);
+      requestAnimationFrame(() => window.scrollTo(0, 0));
+      setTimeout(() => window.scrollTo(0, 0), 50);
+      setTimeout(() => window.scrollTo(0, 0), 300);
     } catch (e) {}
   }, []);
 
