@@ -5,6 +5,7 @@ const VideoModal = lazy(() => import("./VideoModal"));
 
 const HeroSection = () => {
   const [showVideo, setShowVideo] = useState(false);
+  const [autoplayActive, setAutoplayActive] = useState(false);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const shieldRef = useRef<HTMLDivElement | null>(null);
   const targetRef = useRef({ x: 0, y: 0 });
@@ -123,7 +124,7 @@ const HeroSection = () => {
           style={{ willChange: "transform, opacity" }}
         />
 
-        <div className="container mx-auto px-6 relative z-10">
+        <div className="container mx-auto px-6 relative z-50">
           <motion.div
             variants={containerVariants}
             initial="hidden"
@@ -162,6 +163,7 @@ const HeroSection = () => {
               <button
                 onClick={() => {
                   userInteractedRef.current = true;
+                  setAutoplayActive(false);
                   setShowVideo(true);
                 }}
                 data-ripple
@@ -203,7 +205,7 @@ const HeroSection = () => {
                   rotateY: [0, -5, 0]
                 }}
                 transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                className="relative z-10"
+                className="relative z-50"
               >
                 <div className="w-56 h-56 md:w-80 md:h-80 rounded-[3rem] bg-gradient-to-br from-white/10 via-primary/5 to-transparent flex items-center justify-center backdrop-blur-sm border border-white/8 shadow-[0_20px_60px_-20px_rgba(33,28,68,0.45)] group-hover:border-primary/30 transition-colors duration-700">
                   <div className="w-40 h-40 md:w-56 md:h-56 rounded-[2rem] bg-card/60 flex items-center justify-center border border-white/5 overflow-hidden relative shadow-inner">
@@ -226,13 +228,16 @@ const HeroSection = () => {
       </section>
 
         <Suspense fallback={null}>
-          <VideoModal isOpen={showVideo} onClose={() => setShowVideo(false)} />
+          <VideoModal isOpen={showVideo} onClose={() => { setShowVideo(false); setAutoplayActive(false); }} autoplayMuted={autoplayActive} />
         </Suspense>
 
-        {/* Autoplay demo after 5s on first open (respecting reduced-motion) */}
+        {/* Autoplay demo after 5 minutes on first open (respecting reduced-motion) */}
         {typeof window !== 'undefined' && (
           <AutoplayHandler reduceMotion={reduceMotion} onAutoplay={() => {
-            if (!userInteractedRef.current) setShowVideo(true);
+            if (!userInteractedRef.current) {
+              setAutoplayActive(true);
+              setShowVideo(true);
+            }
           }} />
         )}
     </>
@@ -245,7 +250,8 @@ const HeroSection = () => {
   function AutoplayHandler({ reduceMotion, onAutoplay }: { reduceMotion: boolean; onAutoplay: () => void }) {
     useEffect(() => {
       if (reduceMotion) return;
-      const t = setTimeout(() => onAutoplay(), 5000);
+      // Wait 5 minutes (300,000 ms) before autoplaying demo
+      const t = setTimeout(() => onAutoplay(), 300000);
       return () => clearTimeout(t);
     }, [reduceMotion, onAutoplay]);
     return null;

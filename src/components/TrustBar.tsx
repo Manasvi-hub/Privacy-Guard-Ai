@@ -8,7 +8,7 @@ const items = [
 ];
 
 const TrustBar = () => (
-  <section className="relative z-10 -mt-12 pb-8">
+  <section className="relative z-10 pb-8">
     <div className="container mx-auto px-6">
       <motion.div
         initial={{ opacity: 0, y: 30 }}

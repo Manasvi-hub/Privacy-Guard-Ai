@@ -13,7 +13,29 @@ if (typeof window !== "undefined") {
 		if (window.location.hash) {
 			history.replaceState(null, document.title, window.location.pathname + window.location.search);
 		}
+
+		// Temporarily disable smooth scrolling to avoid a browser restoring a position
+		// with a smooth animation. We'll restore the CSS value shortly after load.
+		try {
+			document.documentElement.style.scrollBehavior = 'auto';
+		} catch (err) {}
+
 		window.scrollTo(0, 0);
+
+		// Some browsers restore from bfcache — ensure we land at top when that happens
+		window.addEventListener('pageshow', (ev: PageTransitionEvent) => {
+			if (ev.persisted) window.scrollTo(0, 0);
+		});
+
+		// After the page is settled, restore the document scroll behavior
+		window.addEventListener('load', () => {
+			// small delay to let the browser settle
+			window.setTimeout(() => {
+				try {
+					document.documentElement.style.scrollBehavior = '';
+				} catch (err) {}
+			}, 50);
+		});
 	} catch (e) {
 		// ignore
 	}

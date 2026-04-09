@@ -5,6 +5,7 @@ import { X } from "lucide-react";
 interface VideoModalProps {
   isOpen: boolean;
   onClose: () => void;
+  autoplayMuted?: boolean;
 }
 
 const VideoModal = ({ isOpen, onClose }: VideoModalProps) => {
@@ -13,10 +14,14 @@ const VideoModal = ({ isOpen, onClose }: VideoModalProps) => {
   useEffect(() => {
     if (isOpen && videoRef.current) {
       videoRef.current.currentTime = 0;
+      // If the modal was opened by autoplay, mute to satisfy autoplay policies.
+      if ((videoRef.current as HTMLVideoElement).muted !== !!autoplayMuted) {
+        videoRef.current.muted = !!autoplayMuted;
+      }
       const p = videoRef.current.play();
       if (p && typeof p.then === "function") p.catch(() => {});
     }
-  }, [isOpen]);
+  }, [isOpen, autoplayMuted]);
 
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
@@ -65,14 +70,14 @@ const VideoModal = ({ isOpen, onClose }: VideoModalProps) => {
             {/* Video container with premium frame */}
             <div className="rounded-3xl overflow-hidden shadow-[0_60px_120px_-30px_rgba(0,0,0,0.8)] border border-white/5 bg-black">
               <video
-                ref={videoRef}
-                src="/demo-video.mp4"
-                poster="/logo.jpg"
-                preload="metadata"
-                className="w-full aspect-video"
-                controls
-                playsInline
-              />
+                  ref={videoRef}
+                  src="/demo-video.mp4"
+                  poster="/logo.jpg"
+                  preload="metadata"
+                  className="w-full aspect-video"
+                  controls
+                  playsInline
+                />
             </div>
           </motion.div>
         </motion.div>
