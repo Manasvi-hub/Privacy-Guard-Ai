@@ -42,15 +42,11 @@ const ChromeSVG: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
 );
 
 const EdgeSVG: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
+  // Monochrome, centered Edge glyph to match other browser icons visually.
   <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" {...props}>
-    <defs>
-      <linearGradient id="gEdge" x1="0" x2="1">
-        <stop offset="0" stopColor="#0078D7" />
-        <stop offset="1" stopColor="#00A4EF" />
-      </linearGradient>
-    </defs>
-    <path d="M3 12c0 5 4 9 9 9 2 0 4-0.6 5.6-1.7C17 17 13.3 15.5 9.6 15.5 8 15.5 6.5 15.8 5 16.4V12z" fill="url(#gEdge)" />
-    <path d="M12 3C9 3 6.4 4 4.5 5.8 7 5 9.4 4.5 12 4.5c3.7 0 7 1 9.6 3.1C20 4.2 16.4 3 12 3z" fill="#00C6FF" opacity="0.95" />
+    <title>Edge</title>
+    <path d="M3 12c0 5 4 9 9 9 2 0 4-0.6 5.6-1.7C17 17 13.3 15.5 9.6 15.5 8 15.5 6.5 15.8 5 16.4V12z" fill="#000" />
+    <path d="M12 3C9 3 6.4 4 4.5 5.8 7 5 9.4 4.5 12 4.5c3.7 0 7 1 9.6 3.1C20 4.2 16.4 3 12 3z" fill="#000" opacity="0.95" />
   </svg>
 );
 
