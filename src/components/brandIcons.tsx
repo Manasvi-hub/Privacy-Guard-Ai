@@ -1,9 +1,32 @@
 import * as React from "react";
 
-// These are stylized, non-exact SVGs that match the official color palettes
-// but keep simplified geometry for a clean UI and easy tweaking.
+// This component attempts to load an official SVG from `/public/brands/{name}.svg`.
+// If the image is missing or fails to load, it falls back to an inline SVG.
+// To use real logos, add these files to `public/brands/`: `chrome.svg`, `edge.svg`,
+// `firefox.svg`, `opera.svg`, `safari.svg`.
 
-export const Chrome: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
+type IconProps = { className?: string; size?: number; alt?: string };
+
+interface ImgWithFallbackProps {
+  src: string;
+  alt: string;
+  fallback: React.ReactElement;
+  className?: string;
+  size?: number;
+}
+
+const ImgWithFallback: React.FC<ImgWithFallbackProps> = ({ src, alt, fallback, className, size }) => {
+  const [failed, setFailed] = React.useState(false);
+  if (!failed) {
+    return (
+      // width/height left to CSS via className (w-8 h-8 etc.) — size optional
+      <img src={src} alt={alt} className={className} width={size} height={size} onError={() => setFailed(true)} />
+    );
+  }
+  return React.cloneElement(fallback, { className });
+};
+
+const ChromeSVG: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" {...props}>
     <defs>
       <linearGradient id="gChromeCenter" x1="0" x2="1">
@@ -18,7 +41,7 @@ export const Chrome: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   </svg>
 );
 
-export const Edge: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
+const EdgeSVG: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" {...props}>
     <defs>
       <linearGradient id="gEdge" x1="0" x2="1">
@@ -31,7 +54,7 @@ export const Edge: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   </svg>
 );
 
-export const Firefox: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
+const FirefoxSVG: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" {...props}>
     <defs>
       <radialGradient id="gFx" cx="50%" cy="40%">
@@ -45,7 +68,7 @@ export const Firefox: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   </svg>
 );
 
-export const Opera: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
+const OperaSVG: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" {...props}>
     <defs>
       <linearGradient id="gOp" x1="0" x2="1">
@@ -59,7 +82,7 @@ export const Opera: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   </svg>
 );
 
-export const Safari: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
+const SafariSVG: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" {...props}>
     <defs>
       <linearGradient id="gSafari" x1="0" x2="1">
@@ -74,6 +97,26 @@ export const Safari: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
       <circle cx="0" cy="0" r="1.2" fill="#0A3B7A" />
     </g>
   </svg>
+);
+
+export const Chrome: React.FC<IconProps> = ({ className, size, alt }) => (
+  <ImgWithFallback src="/brands/chrome.svg" alt={alt ?? "Chrome"} fallback={<ChromeSVG />} className={className} size={size} />
+);
+
+export const Edge: React.FC<IconProps> = ({ className, size, alt }) => (
+  <ImgWithFallback src="/brands/edge.svg" alt={alt ?? "Edge"} fallback={<EdgeSVG />} className={className} size={size} />
+);
+
+export const Firefox: React.FC<IconProps> = ({ className, size, alt }) => (
+  <ImgWithFallback src="/brands/firefox.svg" alt={alt ?? "Firefox"} fallback={<FirefoxSVG />} className={className} size={size} />
+);
+
+export const Opera: React.FC<IconProps> = ({ className, size, alt }) => (
+  <ImgWithFallback src="/brands/opera.svg" alt={alt ?? "Opera"} fallback={<OperaSVG />} className={className} size={size} />
+);
+
+export const Safari: React.FC<IconProps> = ({ className, size, alt }) => (
+  <ImgWithFallback src="/brands/safari.svg" alt={alt ?? "Safari"} fallback={<SafariSVG />} className={className} size={size} />
 );
 
 export default { Chrome, Edge, Firefox, Opera, Safari };
