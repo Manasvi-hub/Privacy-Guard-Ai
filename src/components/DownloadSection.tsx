@@ -68,12 +68,7 @@ const DownloadSection = () => {
 
         {STORE_LINKS.edge && STORE_LINKS.edge.startsWith("http") && (
           <div className="max-w-4xl mx-auto mb-8">
-            <a
-              href={STORE_LINKS.edge}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="glass-card px-4 py-3 flex items-center justify-between gap-4"
-            >
+            <div className="glass-card px-4 py-3 flex items-center justify-between gap-4">
               <div className="flex items-center gap-3">
                 <div className="w-9 h-9 rounded-md bg-white/5 flex items-center justify-center">
                   <Edge className="w-6 h-6 text-white" />
@@ -83,8 +78,27 @@ const DownloadSection = () => {
                   <p className="text-xs text-white/50">Install from the official Edge Add-ons store</p>
                 </div>
               </div>
-              <span className="text-[12px] font-black bg-white/6 px-3 py-1 rounded-full border border-white/8">Open Add-ons</span>
-            </a>
+              <div className="flex items-center gap-3">
+                <a
+                  href={STORE_LINKS.edge}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[12px] font-black bg-white/6 px-3 py-1 rounded-full border border-white/8"
+                >
+                  Open Add-ons
+                </a>
+                {STORE_LINKS.partnerCenter && STORE_LINKS.partnerCenter.startsWith("http") && (
+                  <a
+                    href={STORE_LINKS.partnerCenter}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[12px] font-black bg-white/6 px-3 py-1 rounded-full border border-white/8"
+                  >
+                    Open Partner Center
+                  </a>
+                )}
+              </div>
+            </div>
           </div>
         )}
 

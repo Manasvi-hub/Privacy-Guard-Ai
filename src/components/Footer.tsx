@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Github, Globe, Shield } from "lucide-react";
+import STORE_LINKS from "@/config/storeLinks";
 
 const Footer = () => (
   <footer className="relative overflow-hidden">
@@ -31,20 +32,29 @@ const Footer = () => (
 
           {/* Links */}
           <div className="flex items-center gap-8">
-            {[
-              { label: "Privacy Policy", href: "#", icon: Shield },
-              { label: "Terms", href: "#", icon: Globe },
-              { label: "GitHub", href: "#", icon: Github },
-            ].map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className="flex items-center gap-2 text-[12px] font-bold text-white/30 hover:text-white uppercase tracking-[0.15em] transition-all duration-300 group"
-              >
-                <link.icon className="w-3.5 h-3.5 group-hover:text-primary transition-colors" />
-                {link.label}
-              </a>
-            ))}
+            {(
+              [
+                { label: "Privacy Policy", href: "#", icon: Shield },
+                { label: "Terms", href: "#", icon: Globe },
+                { label: "GitHub", href: "#", icon: Github },
+              ]
+            )
+              .concat(STORE_LINKS.partnerCenter ? [{ label: "Partner Center", href: STORE_LINKS.partnerCenter, icon: Globe }] : [])
+              .map((link) => {
+                const isExternal = !!link.href && typeof link.href === 'string' && link.href.startsWith('http');
+                return (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    target={isExternal ? "_blank" : undefined}
+                    rel={isExternal ? "noopener noreferrer" : undefined}
+                    className="flex items-center gap-2 text-[12px] font-bold text-white/30 hover:text-white uppercase tracking-[0.15em] transition-all duration-300 group"
+                  >
+                    <link.icon className="w-3.5 h-3.5 group-hover:text-primary transition-colors" />
+                    {link.label}
+                  </a>
+                );
+              })}
           </div>
 
           {/* Copyright */}
