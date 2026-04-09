@@ -13,9 +13,12 @@ const HeroSection = () => {
   const reduceMotion = useReducedMotion();
 
   useEffect(() => {
+    // Skip interactive parallax when user prefers reduced motion
     if (reduceMotion) return;
     const el = containerRef.current;
     if (!el) return;
+
+    let mounted = true;
     const onMove = (e: PointerEvent) => {
       const rect = el.getBoundingClientRect();
       const x = (e.clientX - rect.left) / rect.width - 0.5;
@@ -23,6 +26,7 @@ const HeroSection = () => {
       targetRef.current.x = x;
       targetRef.current.y = y;
     };
+
     const animate = () => {
       currentRef.current.x += (targetRef.current.x - currentRef.current.x) * 0.12;
       currentRef.current.y += (targetRef.current.y - currentRef.current.y) * 0.12;
@@ -33,11 +37,38 @@ const HeroSection = () => {
       }
       rafRef.current = requestAnimationFrame(animate);
     };
-    el.addEventListener("pointermove", onMove, { passive: true });
-    rafRef.current = requestAnimationFrame(animate);
-    return () => {
+
+    // Start / stop helpers
+    const start = () => {
+      el.addEventListener("pointermove", onMove, { passive: true });
+      if (rafRef.current == null) rafRef.current = requestAnimationFrame(animate);
+    };
+    const stop = () => {
       el.removeEventListener("pointermove", onMove as any);
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
+        rafRef.current = null;
+      }
+    };
+
+    // Only enable pointer-based parallax while the hero is visible
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (!mounted) return;
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) start();
+          else stop();
+        });
+      },
+      { threshold: 0.25 }
+    );
+
+    observer.observe(el);
+
+    return () => {
+      mounted = false;
+      observer.disconnect();
+      stop();
     };
   }, [reduceMotion]);
 
@@ -156,7 +187,7 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.2, delay: 0.8, ease: [0.23, 1, 0.32, 1] }}
-            className="mt-24 md:mt-32 flex justify-center perspective-1000"
+            className="mt-24 md:mt-32 flex justify-center perspective-1000 isolate-hero"
           >
             <div className="relative group">
               {/* Outer Rings */}

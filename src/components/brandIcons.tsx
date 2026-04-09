@@ -17,10 +17,10 @@ interface ImgWithFallbackProps {
 
 const ImgWithFallback: React.FC<ImgWithFallbackProps> = ({ src, alt, fallback, className, size }) => {
   const [failed, setFailed] = React.useState(false);
-  if (!failed) {
+    if (!failed) {
     return (
       // width/height left to CSS via className (w-8 h-8 etc.) — size optional
-      <img src={src} alt={alt} className={className} width={size} height={size} onError={() => setFailed(true)} />
+      <img src={src} alt={alt} className={className} width={size} height={size} loading="lazy" decoding="async" onError={() => setFailed(true)} />
     );
   }
   return React.cloneElement(fallback, { className });

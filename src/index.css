@@ -243,6 +243,14 @@
     will-change: transform;
   }
 
+  /* Contain heavy hero visuals to reduce global repaint scope */
+  .isolate-hero {
+    contain: paint;
+    will-change: transform, opacity;
+    /* prevent accidental layout shifts from large shadows */
+    backface-visibility: hidden;
+  }
+
   /* Section dividers */
   .section-divider {
     height: 1px;

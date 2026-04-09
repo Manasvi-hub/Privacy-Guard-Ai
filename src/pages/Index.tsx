@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from "react";
-import { motion, useScroll, useSpring } from "framer-motion";
+import { motion, useScroll, useSpring, useReducedMotion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import TrustBar from "@/components/TrustBar";
@@ -20,7 +20,13 @@ const SectionDivider = () => (
 
 const Index = () => {
   const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, {
+  const reduceMotion = useReducedMotion();
+  const scaleX = useSpring(scrollYProgress, reduceMotion ? {
+    // fast, near-instant mapping when user requests reduced motion
+    stiffness: 1000,
+    damping: 1000,
+    restDelta: 0.001,
+  } : {
     stiffness: 100,
     damping: 30,
     restDelta: 0.001,

@@ -1,4 +1,4 @@
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring, useReducedMotion } from "framer-motion";
 import { useRef } from "react";
 
 const steps = [
@@ -35,7 +35,14 @@ const ProcessStepGuide = () => {
     offset: ["start 80%", "end 20%"],
   });
 
-  const smoothProgress = useSpring(scrollYProgress, {
+  const reduceMotion = useReducedMotion();
+
+  const smoothProgress = useSpring(scrollYProgress, reduceMotion ? {
+    // Make the spring effectively instant when reduced-motion is requested
+    stiffness: 1000,
+    damping: 1000,
+    restDelta: 0.001
+  } : {
     stiffness: 100,
     damping: 30,
     restDelta: 0.001
@@ -86,7 +93,7 @@ const ProcessStepGuide = () => {
                 <stop offset="100%" stopColor="#f97316" />
               </linearGradient>
               <filter id="glow">
-                <feGaussianBlur stdDeviation="8" result="blur" />
+                <feGaussianBlur stdDeviation="4" result="blur" />
                 <feMerge>
                   <feMergeNode in="blur" />
                   <feMergeNode in="SourceGraphic" />
