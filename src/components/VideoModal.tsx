@@ -8,7 +8,7 @@ interface VideoModalProps {
   autoplayMuted?: boolean;
 }
 
-const VideoModal = ({ isOpen, onClose }: VideoModalProps) => {
+const VideoModal = ({ isOpen, onClose, autoplayMuted }: VideoModalProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
