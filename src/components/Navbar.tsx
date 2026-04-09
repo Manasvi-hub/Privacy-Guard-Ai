@@ -29,8 +29,8 @@ const Navbar = () => {
             <div className="absolute inset-0 bg-primary/20 blur-lg rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             <img loading="lazy" src="/logo.jpg" alt="PrivacyGuard AI Logo" className="w-10 h-10 rounded-xl object-cover relative z-10 border border-white/10 transition-transform duration-500 group-hover:scale-110" />
           </div>
-          <span className="font-black text-xl tracking-tighter text-white group-hover:glow-text transition-all duration-300">
-            PrivacyGuard <span className="text-white/60 group-hover:text-white transition-colors">AI</span>
+          <span className="font-black text-xl tracking-tighter group-hover:glow-text transition-all duration-300 premium-gradient">
+            PrivacyGuard AI
           </span>
         </div>
 

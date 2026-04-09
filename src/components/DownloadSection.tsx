@@ -61,11 +61,14 @@ const DownloadSection = () => {
               key={browser.name}
               href={browser.href}
               variants={itemVariants}
+              whileHover={{ y: -8, scale: 1.03 }}
+              whileTap={{ scale: 0.985 }}
+              transition={{ type: "spring", stiffness: 320, damping: 28 }}
               className="glass-card-hover p-8 flex flex-col items-center group relative overflow-hidden"
             >
               <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <div className="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500 border border-white/5 group-hover:border-primary/20 group-hover:bg-primary/5 relative z-10">
-                <browser.icon className="w-8 h-8 text-white group-hover:text-primary transition-colors" />
+                <browser.icon className="w-8 h-8 transition-transform" />
               </div>
               <h3 className="font-black text-xs uppercase tracking-widest text-white/40 group-hover:text-white transition-colors relative z-10 text-center">
                 {browser.name}

@@ -22,8 +22,8 @@ const Footer = () => (
               <div className="absolute inset-0 bg-primary/20 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             </div>
             <div>
-              <p className="font-black text-xl tracking-tighter text-white">
-                PrivacyGuard <span className="text-white/40">AI</span>
+              <p className="font-black text-xl tracking-tighter premium-gradient">
+                PrivacyGuard AI
               </p>
               <p className="text-[10px] font-bold text-white/20 uppercase tracking-[0.3em]">Industrial-Grade Privacy</p>
             </div>
