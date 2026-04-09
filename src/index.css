@@ -79,7 +79,7 @@
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     opacity: 0.03;
     pointer-events: none;
-    z-index: 100;
+    z-index: -1;
     mix-blend-mode: overlay;
   }
 
@@ -112,23 +112,21 @@
 
 @layer components {
   .glass-card {
-    @apply bg-white/[0.03] backdrop-blur-2xl border border-white/[0.06] rounded-2xl;
-    box-shadow: 
-      0 4px 6px -1px rgba(0, 0, 0, 0.15),
-      0 2px 4px -1px rgba(0, 0, 0, 0.1),
-      inset 0 1px 0 rgba(255, 255, 255, 0.04);
-    transition: all 0.5s var(--ease-standard);
+    @apply bg-white/[0.03] backdrop-blur-sm border border-white/[0.06] rounded-2xl;
+    box-shadow:
+      0 6px 18px -10px rgba(0,0,0,0.28),
+      inset 0 1px 0 rgba(255,255,255,0.03);
+    transition: transform 260ms var(--ease-standard), box-shadow 260ms var(--ease-standard), background-color 260ms var(--ease-standard), border-color 260ms var(--ease-standard);
   }
 
   .glass-card-hover {
     @apply glass-card;
     &:hover {
       @apply bg-white/[0.06] border-white/[0.12];
-      box-shadow: 
-        0 25px 50px -12px rgba(0, 0, 0, 0.35),
-        0 12px 24px -8px rgba(0, 0, 0, 0.15),
-        inset 0 1px 0 rgba(255, 255, 255, 0.08);
-      transform: translateY(-6px);
+      box-shadow:
+        0 12px 30px -10px rgba(0,0,0,0.26),
+        inset 0 1px 0 rgba(255,255,255,0.06);
+      transform: translateY(-4px);
     }
   }
 
@@ -137,17 +135,18 @@
     text-shadow: 0 0 30px rgba(255, 255, 255, 0.3), 0 0 60px rgba(255, 255, 255, 0.1);
   }
 
+
   .glow-button {
-    @apply bg-white text-black font-bold px-8 py-4 rounded-2xl transition-all duration-500;
-    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.15);
+    @apply bg-white text-black font-bold px-8 py-4 rounded-2xl;
+    box-shadow: 0 6px 20px rgba(255,255,255,0.12);
+    transition: transform 220ms var(--ease-standard), box-shadow 220ms var(--ease-standard), opacity 160ms ease;
     transition-timing-function: var(--ease-standard);
+    transform: translateZ(0);
   }
 
   .glow-button:hover {
-    box-shadow: 
-      0 10px 40px rgba(255, 255, 255, 0.2),
-      0 0 80px rgba(255, 255, 255, 0.08);
-    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(255,255,255,0.12);
+    transform: translateY(-2px) scale(1.02);
   }
 
   .glow-button:active {
@@ -228,16 +227,16 @@
   }
 
   .glow-button:hover {
-    transform: translateY(-4px) scale(1.02);
-    box-shadow: 0 12px 40px rgba(255,255,255,0.12), 0 8px 24px rgba(0,0,0,0.25);
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 10px 30px rgba(255,255,255,0.12), 0 6px 18px rgba(0,0,0,0.18);
   }
 
   .glow-button:active {
-    transform: translateY(-1px) scale(0.99);
+    transform: translateY(-1px) scale(0.995);
   }
 
   .glow-button:focus-visible {
-    box-shadow: 0 0 0 6px rgba(167,139,250,0.10), 0 10px 30px rgba(0,0,0,0.25);
+    box-shadow: 0 0 0 6px rgba(167,139,250,0.08), 0 8px 24px rgba(0,0,0,0.18);
   }
 
   .glass-card-hover {

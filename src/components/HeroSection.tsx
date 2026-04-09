@@ -74,20 +74,21 @@ const HeroSection = () => {
         {/* Ambient Gradient Orbs */}
         <motion.div 
           animate={{ 
-            scale: [1, 1.1, 1],
-            opacity: [0.3, 0.5, 0.3]
+            scale: [1, 1.06, 1],
+            opacity: [0.32, 0.5, 0.32]
           }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-1/4 -left-20 w-[500px] h-[500px] bg-primary/20 rounded-full blur-[140px] pointer-events-none" 
-          style={{ willChange: "transform" }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-1/4 -left-20 w-[420px] h-[420px] bg-primary/18 rounded-full blur-[64px] pointer-events-none" 
+          style={{ willChange: "transform, opacity" }}
         />
         <motion.div 
           animate={{ 
-            scale: [1, 1.2, 1],
-            opacity: [0.2, 0.4, 0.2]
+            scale: [1, 1.08, 1],
+            opacity: [0.22, 0.42, 0.22]
           }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-          className="absolute bottom-1/4 -right-20 w-[600px] h-[600px] bg-accent/15 rounded-full blur-[160px] pointer-events-none" 
+          transition={{ duration: 14, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          className="absolute bottom-1/4 -right-20 w-[480px] h-[480px] bg-accent/12 rounded-full blur-[80px] pointer-events-none" 
+          style={{ willChange: "transform, opacity" }}
         />
 
         <div className="container mx-auto px-6 relative z-10">
@@ -180,7 +181,7 @@ const HeroSection = () => {
                 transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
                 className="relative z-10"
               >
-                <div className="w-56 h-56 md:w-80 md:h-80 rounded-[3rem] bg-gradient-to-br from-white/10 via-primary/5 to-transparent flex items-center justify-center backdrop-blur-lg border border-white/10 shadow-[0_40px_100px_-20px_rgba(33,28,68,0.6)] group-hover:border-primary/30 transition-colors duration-700">
+                <div className="w-56 h-56 md:w-80 md:h-80 rounded-[3rem] bg-gradient-to-br from-white/10 via-primary/5 to-transparent flex items-center justify-center backdrop-blur-sm border border-white/8 shadow-[0_20px_60px_-20px_rgba(33,28,68,0.45)] group-hover:border-primary/30 transition-colors duration-700">
                   <div className="w-40 h-40 md:w-56 md:h-56 rounded-[2rem] bg-card/60 flex items-center justify-center border border-white/5 overflow-hidden relative shadow-inner">
                     <img loading="eager" decoding="sync" src="/logo.jpg" alt="PrivacyGuard AI Logo" className="w-full h-full object-cover scale-105 group-hover:scale-110 transition-transform duration-1000" />
                     <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-transparent mix-blend-overlay" />
