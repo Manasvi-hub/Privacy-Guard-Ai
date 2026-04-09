@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Chrome, Edge, Firefox, Opera, Safari } from "./brandIcons";
+import STORE_LINKS from "@/config/storeLinks";
 
 // Animation config: tweak these values to adjust entrance stagger and pop intensity
 const ANIM = {
@@ -16,11 +17,11 @@ const ANIM = {
 };
 
 const platforms = [
-  { name: "Chrome", icon: Chrome, href: "/extension.zip", available: true, cta: "Download ZIP" },
-  { name: "Edge", icon: Edge, href: "/extension.zip", available: true, cta: "Download ZIP" },
-  { name: "Firefox", icon: Firefox, href: "/extension.zip", available: true, cta: "Download ZIP" },
-  { name: "Opera", icon: Opera, href: "/extension.zip", available: true, cta: "Download ZIP" },
-  { name: "Safari", icon: Safari, href: "/extension.zip", available: true, cta: "Download ZIP" },
+  { name: "Chrome", icon: Chrome, href: STORE_LINKS.chrome || "/extension.zip", available: true, cta: STORE_LINKS.chrome ? "Open on Chrome Web Store" : "Download ZIP" },
+  { name: "Edge", icon: Edge, href: STORE_LINKS.edge || "/extension.zip", available: true, cta: STORE_LINKS.edge ? "Open on Edge Add-ons" : "Download ZIP" },
+  { name: "Firefox", icon: Firefox, href: STORE_LINKS.firefox || "/extension.zip", available: true, cta: STORE_LINKS.firefox ? "Open on Firefox Add-ons" : "Download ZIP" },
+  { name: "Opera", icon: Opera, href: STORE_LINKS.opera || "/extension.zip", available: true, cta: STORE_LINKS.opera ? "Open on Opera Add-ons" : "Download ZIP" },
+  { name: "Safari", icon: Safari, href: STORE_LINKS.safari || "/extension.zip", available: true, cta: STORE_LINKS.safari ? "Open on App Store" : "Download ZIP" },
 ];
 
 const DownloadSection = () => {
@@ -72,28 +73,33 @@ const DownloadSection = () => {
           viewport={{ once: true }}
           className="grid grid-cols-2 md:grid-cols-5 gap-6 max-w-6xl mx-auto"
         >
-          {platforms.map((browser, i) => (
-            <motion.a
-              key={browser.name}
-              href={browser.href}
-              variants={itemVariants}
-              whileHover={{ y: ANIM.hoverLift, scale: ANIM.hoverScale }}
-              whileTap={{ scale: ANIM.tapScale }}
-              transition={ANIM.spring}
-              className="glass-card-hover p-8 flex flex-col items-center group relative overflow-hidden"
-            >
-              <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          {platforms.map((browser, i) => {
+            const isExternal = !!browser.href && browser.href.startsWith("http");
+            return (
+              <motion.a
+                key={browser.name}
+                href={browser.href}
+                target={isExternal ? "_blank" : undefined}
+                rel={isExternal ? "noopener noreferrer" : undefined}
+                variants={itemVariants}
+                whileHover={{ y: ANIM.hoverLift, scale: ANIM.hoverScale }}
+                whileTap={{ scale: ANIM.tapScale }}
+                transition={ANIM.spring}
+                className="glass-card-hover p-8 flex flex-col items-center group relative overflow-hidden"
+              >
+                <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <div className="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500 border border-white/5 group-hover:border-primary/20 group-hover:bg-primary/5 relative z-10">
-                <browser.icon className={`w-8 h-8 transition-transform ${browser.name === 'Edge' ? 'scale-110' : ''}`} />
-              </div>
-              <h3 className="font-black text-xs uppercase tracking-widest text-white/40 group-hover:text-white transition-colors relative z-10 text-center">
-                {browser.name}
-              </h3>
-              <div className="mt-4 text-[10px] font-black text-primary opacity-0 group-hover:opacity-100 transition-opacity uppercase tracking-tighter">
-                Download ZIP
-              </div>
-            </motion.a>
-          ))}
+                  <browser.icon className={`w-8 h-8 transition-transform ${browser.name === 'Edge' ? 'scale-110' : ''}`} />
+                </div>
+                <h3 className="font-black text-xs uppercase tracking-widest text-white/40 group-hover:text-white transition-colors relative z-10 text-center">
+                  {browser.name}
+                </h3>
+                <div className="mt-4 text-[10px] font-black text-primary opacity-0 group-hover:opacity-100 transition-opacity uppercase tracking-tighter">
+                  {browser.cta}
+                </div>
+              </motion.a>
+            );
+          })}
         </motion.div>
       </div>
     </section>
