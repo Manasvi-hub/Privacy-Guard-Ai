@@ -162,7 +162,7 @@ const ProcessStepGuide = () => {
                   className={`absolute w-full max-w-[260px] z-30
                     ${step.position === 'top' ? 'top-[160px]' : 'bottom-[160px]'}`}
                 >
-                  <div className="p-8 border-white/5 bg-black rounded-[2rem] text-center shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)] z-40">
+                  <div className="glass-card p-8 border-white/5 rounded-[2rem] text-center group">
                      <h3 className="text-lg font-bold text-white mb-3 leading-tight tracking-tight group-hover:glow-text transition-all duration-300">{step.title}</h3>
                      <p className="text-[12px] text-white/50 leading-relaxed font-semibold">
                        {step.desc}
@@ -181,7 +181,7 @@ const ProcessStepGuide = () => {
                  >
                    {step.number}
                  </motion.div>
-                 <div className="p-8 border-white/10 bg-black rounded-3xl z-30">
+                 <div className="glass-card p-8 border-white/10 rounded-3xl">
                    <h3 className="text-xl font-bold text-white mb-3 leading-tight">{step.title}</h3>
                    <p className="text-base text-white/50 leading-relaxed font-medium">{step.desc}</p>
                  </div>
