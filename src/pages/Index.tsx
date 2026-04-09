@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from "react";
+import React, { Suspense, lazy, useEffect } from "react";
 import { motion, useScroll, useSpring, useReducedMotion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
@@ -54,6 +54,14 @@ const Index = () => {
     };
     document.addEventListener('pointerdown', handler, { passive: true });
     return () => document.removeEventListener('pointerdown', handler as any);
+  }, []);
+
+  // Ensure we start at the top of the page after hydration to avoid
+  // mid-page landing caused by browser restore or in-page anchors.
+  useEffect(() => {
+    try {
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    } catch (e) {}
   }, []);
 
   return (
