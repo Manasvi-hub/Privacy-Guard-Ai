@@ -4,8 +4,10 @@ import { AlertTriangle, Send, ShieldAlert, CheckCircle2 } from "lucide-react";
 
 const SENSITIVE_PATTERNS = [
   { regex: /\b\d{4}[\s-]?\d{4}[\s-]?\d{4}[\s-]?\d{4}\b/g, label: "Credit Card" },
-  { regex: /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/g, label: "Email" },
-  { regex: /\bsk[-_][A-Za-z0-9]{20,}\b/g, label: "API Key" },
+  // Match email case-insensitively and avoid stray '|' inside character class
+  { regex: /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b/gi, label: "Email" },
+  // Allow underscores/hyphens and shorter API key tails for demo purposes
+  { regex: /\bsk[-_][A-Za-z0-9_-]{16,}\b/gi, label: "API Key" },
   { regex: /\b\d{3}[-]?\d{2}[-]?\d{4}\b/g, label: "SSN" },
 ];
 
@@ -25,10 +27,12 @@ const InteractiveDemo = () => {
     let redacted = text;
     const detections: string[] = [];
     for (const pattern of SENSITIVE_PATTERNS) {
-      const matches = text.match(pattern.regex);
-      if (matches) {
+      // Use a fresh RegExp instance to avoid stateful side-effects
+      const re = new RegExp(pattern.regex.source, pattern.regex.flags);
+      const matches = text.match(re);
+      if (matches && matches.length > 0) {
         detections.push(`${matches.length} ${pattern.label}${matches.length > 1 ? "s" : ""}`);
-        redacted = redacted.replace(pattern.regex, (m) => "█".repeat(m.length));
+        redacted = redacted.replace(re, (m) => "█".repeat(m.length));
       }
     }
     return { redacted, detections };
@@ -163,8 +167,10 @@ const InteractiveDemo = () => {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   className="flex items-center gap-3 text-primary text-sm font-bold"
+                  role="status"
+                  aria-live="polite"
                 >
-                  <div className="w-5 h-5 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+                  <div className="w-5 h-5 border-2 border-primary border-t-transparent rounded-full animate-spin" aria-hidden="true" />
                   <span className="tracking-wide">Scanning for sensitive data...</span>
                 </motion.div>
               )}
