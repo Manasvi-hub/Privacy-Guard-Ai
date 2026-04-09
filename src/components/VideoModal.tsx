@@ -13,7 +13,8 @@ const VideoModal = ({ isOpen, onClose }: VideoModalProps) => {
   useEffect(() => {
     if (isOpen && videoRef.current) {
       videoRef.current.currentTime = 0;
-      videoRef.current.play();
+      const p = videoRef.current.play();
+      if (p && typeof p.then === "function") p.catch(() => {});
     }
   }, [isOpen]);
 
@@ -66,9 +67,10 @@ const VideoModal = ({ isOpen, onClose }: VideoModalProps) => {
               <video
                 ref={videoRef}
                 src="/demo-video.mp4"
+                poster="/logo.jpg"
+                preload="metadata"
                 className="w-full aspect-video"
                 controls
-                autoPlay
                 playsInline
               />
             </div>

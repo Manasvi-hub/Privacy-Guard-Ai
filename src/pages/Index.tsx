@@ -1,14 +1,18 @@
+import React, { Suspense, lazy } from "react";
 import { motion, useScroll, useSpring } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import TrustBar from "@/components/TrustBar";
 import FeaturesSection from "@/components/FeaturesSection";
 import HowItWorks from "@/components/HowItWorks";
-import InteractiveDemo from "@/components/InteractiveDemo";
-import DownloadSection from "@/components/DownloadSection";
 import ProcessStepGuide from "@/components/ProcessStepGuide";
-import IDEDownloadSection from "@/components/IDEDownloadSection";
 import Footer from "@/components/Footer";
+
+const InteractiveDemo = lazy(() => import("@/components/InteractiveDemo"));
+const DownloadSection = lazy(() => import("@/components/DownloadSection"));
+const IDEDownloadSection = lazy(() => import("@/components/IDEDownloadSection"));
+
+import SkeletonDemo from "@/components/Skeletons";
 
 const SectionDivider = () => (
   <div className="section-divider mx-auto max-w-4xl" />
@@ -21,6 +25,30 @@ const Index = () => {
     damping: 30,
     restDelta: 0.001,
   });
+
+  React.useEffect(() => {
+    const handler = (e: any) => {
+      try {
+        const el = (e.target as HTMLElement).closest?.('[data-ripple]') as HTMLElement | null;
+        if (!el) return;
+        const rect = el.getBoundingClientRect();
+        const x = (e.clientX ?? 0) - rect.left;
+        const y = (e.clientY ?? 0) - rect.top;
+        const ripple = document.createElement('span');
+        ripple.className = 'ripple-el';
+        const size = Math.max(rect.width, rect.height) * 1.4;
+        ripple.style.width = ripple.style.height = `${size}px`;
+        ripple.style.left = `${x}px`;
+        ripple.style.top = `${y}px`;
+        el.appendChild(ripple);
+        window.setTimeout(() => ripple.remove(), 700);
+      } catch (err) {
+        // ignore
+      }
+    };
+    document.addEventListener('pointerdown', handler, { passive: true });
+    return () => document.removeEventListener('pointerdown', handler as any);
+  }, []);
 
   return (
     <div className="min-h-screen relative">
@@ -41,13 +69,19 @@ const Index = () => {
       <SectionDivider />
       <HowItWorks />
       <SectionDivider />
-      <InteractiveDemo />
+      <Suspense fallback={<SkeletonDemo />}>
+        <InteractiveDemo />
+      </Suspense>
       <SectionDivider />
-      <DownloadSection />
+      <Suspense fallback={<SkeletonDemo />}>
+        <DownloadSection />
+      </Suspense>
       <SectionDivider />
       <ProcessStepGuide />
       <SectionDivider />
-      <IDEDownloadSection />
+      <Suspense fallback={<SkeletonDemo />}>
+        <IDEDownloadSection />
+      </Suspense>
       <Footer />
     </div>
   );

@@ -1,10 +1,45 @@
-import { useState } from "react";
+import { useState, Suspense, lazy, useRef, useEffect } from "react";
 import { Play, ShieldCheck, Lock, Fingerprint } from "lucide-react";
-import { motion } from "framer-motion";
-import VideoModal from "./VideoModal";
+import { motion, useReducedMotion } from "framer-motion";
+const VideoModal = lazy(() => import("./VideoModal"));
 
 const HeroSection = () => {
   const [showVideo, setShowVideo] = useState(false);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const shieldRef = useRef<HTMLDivElement | null>(null);
+  const targetRef = useRef({ x: 0, y: 0 });
+  const currentRef = useRef({ x: 0, y: 0 });
+  const rafRef = useRef<number | null>(null);
+  const reduceMotion = useReducedMotion();
+
+  useEffect(() => {
+    if (reduceMotion) return;
+    const el = containerRef.current;
+    if (!el) return;
+    const onMove = (e: PointerEvent) => {
+      const rect = el.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      targetRef.current.x = x;
+      targetRef.current.y = y;
+    };
+    const animate = () => {
+      currentRef.current.x += (targetRef.current.x - currentRef.current.x) * 0.12;
+      currentRef.current.y += (targetRef.current.y - currentRef.current.y) * 0.12;
+      const tx = currentRef.current.x * 14;
+      const ty = currentRef.current.y * 12;
+      if (shieldRef.current) {
+        shieldRef.current.style.transform = `translate3d(${tx}px, ${ty}px, 0)`;
+      }
+      rafRef.current = requestAnimationFrame(animate);
+    };
+    el.addEventListener("pointermove", onMove, { passive: true });
+    rafRef.current = requestAnimationFrame(animate);
+    return () => {
+      el.removeEventListener("pointermove", onMove as any);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+  }, [reduceMotion]);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -44,6 +79,7 @@ const HeroSection = () => {
           }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
           className="absolute top-1/4 -left-20 w-[500px] h-[500px] bg-primary/20 rounded-full blur-[140px] pointer-events-none" 
+          style={{ willChange: "transform" }}
         />
         <motion.div 
           animate={{ 
@@ -97,12 +133,13 @@ const HeroSection = () => {
               variants={itemVariants}
               className="flex flex-col sm:flex-row items-center justify-center gap-6 w-full"
             >
-              <a href="#download" className="glow-button flex items-center gap-3 text-base px-10 py-5 rounded-2xl group min-w-[240px]">
+              <a data-ripple href="#download" className="glow-button flex items-center gap-3 text-base px-10 py-5 rounded-2xl group min-w-[240px]">
                 <ShieldCheck className="w-6 h-6 group-hover:scale-110 transition-transform" />
                 <span>Add to Browser — Free</span>
               </a>
               <button
                 onClick={() => setShowVideo(true)}
+                data-ripple
                 className="flex items-center gap-3 text-white/70 hover:text-white transition-all px-8 py-5 glass-card-hover rounded-2xl cursor-pointer group min-w-[200px]"
               >
                 <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
@@ -145,7 +182,7 @@ const HeroSection = () => {
               >
                 <div className="w-56 h-56 md:w-80 md:h-80 rounded-[3rem] bg-gradient-to-br from-white/10 via-primary/5 to-transparent flex items-center justify-center backdrop-blur-lg border border-white/10 shadow-[0_40px_100px_-20px_rgba(33,28,68,0.6)] group-hover:border-primary/30 transition-colors duration-700">
                   <div className="w-40 h-40 md:w-56 md:h-56 rounded-[2rem] bg-card/60 flex items-center justify-center border border-white/5 overflow-hidden relative shadow-inner">
-                    <img src="/logo.jpg" alt="PrivacyGuard AI Logo" className="w-full h-full object-cover scale-105 group-hover:scale-110 transition-transform duration-1000" />
+                    <img loading="eager" decoding="sync" src="/logo.jpg" alt="PrivacyGuard AI Logo" className="w-full h-full object-cover scale-105 group-hover:scale-110 transition-transform duration-1000" />
                     <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-transparent mix-blend-overlay" />
                   </div>
                 </div>
@@ -163,7 +200,9 @@ const HeroSection = () => {
         </div>
       </section>
 
-      <VideoModal isOpen={showVideo} onClose={() => setShowVideo(false)} />
+      <Suspense fallback={null}>
+        <VideoModal isOpen={showVideo} onClose={() => setShowVideo(false)} />
+      </Suspense>
     </>
   );
 };

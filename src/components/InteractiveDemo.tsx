@@ -91,7 +91,7 @@ const InteractiveDemo = () => {
                 <div className="w-3 h-3 rounded-full bg-green-500/60" />
               </div>
               <div className="flex items-center gap-2 ml-4">
-                <img src="/logo.jpg" alt="" className="w-5 h-5 rounded-lg object-cover border border-white/10" />
+                <img loading="lazy" src="/logo.jpg" alt="" className="w-5 h-5 rounded-lg object-cover border border-white/10" />
                 <span className="text-sm font-bold text-white/80 tracking-tight">PrivacyGuard Terminal</span>
               </div>
               <span className="ml-auto text-[10px] text-primary bg-primary/10 px-3 py-1 rounded-full font-black uppercase tracking-[0.2em] border border-primary/20">
@@ -183,6 +183,7 @@ const InteractiveDemo = () => {
                 />
                 <button
                   onClick={() => handleSend()}
+                  data-ripple
                   className="glow-button px-5 py-3.5 rounded-xl group"
                 >
                   <Send className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
@@ -197,6 +198,7 @@ const InteractiveDemo = () => {
               <button
                 key={i}
                 onClick={() => handleSend(msg)}
+                data-ripple
                 className="text-[11px] font-bold text-white/30 hover:text-white glass-card-hover px-5 py-2.5 transition-all cursor-pointer uppercase tracking-[0.15em]"
               >
                 Example {i + 1}

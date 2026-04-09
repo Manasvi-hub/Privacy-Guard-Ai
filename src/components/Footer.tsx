@@ -18,12 +18,12 @@ const Footer = () => (
           {/* Brand */}
           <div className="flex items-center gap-4 group cursor-pointer">
             <div className="relative">
-              <img src="/logo.jpg" alt="PrivacyGuard AI Logo" className="w-12 h-12 rounded-2xl object-cover border border-white/10 shadow-xl" />
+              <img loading="lazy" src="/logo.jpg" alt="PrivacyGuard AI Logo" className="w-12 h-12 rounded-2xl object-cover border border-white/10 shadow-xl" />
               <div className="absolute inset-0 bg-primary/20 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             </div>
             <div>
-              <p className="font-black text-xl tracking-tighter text-white">
-                PrivacyGuard <span className="text-white/40">AI</span>
+              <p className="font-black text-xl tracking-tighter premium-gradient">
+                PrivacyGuard AI
               </p>
               <p className="text-[10px] font-bold text-white/20 uppercase tracking-[0.3em]">Industrial-Grade Privacy</p>
             </div>

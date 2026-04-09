@@ -121,6 +121,7 @@ const IDEDownloadSection = () => {
                   </>
                 ) : (
                   <a
+                    data-ripple
                     href={ide.link}
                     target="_blank"
                     rel="noopener noreferrer"

@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800;900&display=swap');
 
 @layer base {
   :root {
@@ -62,7 +61,8 @@
       radial-gradient(ellipse 60% 60% at 80% 80%, rgba(236, 95, 188, 0.25) 0%, transparent 50%),
       radial-gradient(ellipse 50% 50% at 20% 60%, rgba(76, 59, 160, 0.3) 0%, transparent 50%),
       linear-gradient(160deg, #1a0e2e 0%, #231545 30%, #2d1a52 50%, #3a1e5c 70%, #1a0e2e 100%);
-    background-attachment: fixed;
+    /* prefer non-fixed backgrounds for smoother painting on mobile */
+    background-attachment: scroll;
     min-height: 100vh;
     position: relative;
     color: rgba(255, 255, 255, 0.95);
@@ -161,6 +161,87 @@
   .premium-gradient {
     @apply bg-clip-text text-transparent;
     background-image: linear-gradient(135deg, #a78bfa 0%, #ec4899 50%, #f97316 100%);
+    background-size: 200% 200%;
+    animation: gradientShift 6s ease infinite;
+  }
+
+  /* Skeleton shimmer for Suspense fallbacks */
+  .skeleton {
+    background: linear-gradient(90deg, rgba(255,255,255,0.02) 25%, rgba(255,255,255,0.04) 50%, rgba(255,255,255,0.02) 75%);
+    background-size: 200% 100%;
+    animation: skeletonShimmer 1.4s linear infinite;
+  }
+
+  @keyframes skeletonShimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* Respect user preference for reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .premium-gradient,
+    .glass-card,
+    .glow-button,
+    .grid-bg,
+    .glass-card-hover {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+
+  /* Ripple effect for click/tap micro-interactions */
+  [data-ripple] {
+    position: relative;
+    overflow: hidden;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .ripple-el {
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    pointer-events: none;
+    background: radial-gradient(circle, rgba(255,255,255,0.24) 0%, rgba(255,255,255,0.12) 30%, rgba(255,255,255,0.04) 60%, transparent 100%);
+    will-change: transform, opacity;
+    animation: ripple 600ms var(--ease-standard);
+    opacity: 0.9;
+  }
+
+  @keyframes ripple {
+    0% { transform: translate(-50%, -50%) scale(0); opacity: 0.9; }
+    100% { transform: translate(-50%, -50%) scale(4); opacity: 0; }
+  }
+
+  /* Micro-interactions for main CTAs */
+  .glow-button {
+    will-change: transform, box-shadow;
+    transition: transform 220ms var(--ease-standard), box-shadow 220ms var(--ease-standard), opacity 160ms ease;
+    transform: translateZ(0);
+  }
+
+  .glow-button:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 12px 40px rgba(255,255,255,0.12), 0 8px 24px rgba(0,0,0,0.25);
+  }
+
+  .glow-button:active {
+    transform: translateY(-1px) scale(0.99);
+  }
+
+  .glow-button:focus-visible {
+    box-shadow: 0 0 0 6px rgba(167,139,250,0.10), 0 10px 30px rgba(0,0,0,0.25);
+  }
+
+  .glass-card-hover {
+    will-change: transform;
   }
 
   /* Section dividers */

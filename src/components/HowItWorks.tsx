@@ -88,6 +88,7 @@ const HowItWorks = () => {
                 key={step.title}
                 variants={itemVariants}
                 onClick={() => setActiveStep(i)}
+                data-ripple
                 className={`text-left md:text-center relative group cursor-pointer transition-all duration-500 ${
                   i === activeStep ? "scale-105" : "opacity-60 hover:opacity-100"
                 }`}
@@ -151,6 +152,7 @@ const HowItWorks = () => {
                 </div>
                 {activeStep < steps.length - 1 && (
                   <button
+                    data-ripple
                     onClick={() => setActiveStep((s) => s + 1)}
                     className="glow-button flex items-center gap-2 px-8 py-4 rounded-2xl text-sm shrink-0 uppercase tracking-widest font-black self-center md:self-start group"
                   >
