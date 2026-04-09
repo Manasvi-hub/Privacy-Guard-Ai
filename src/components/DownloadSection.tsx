@@ -1,6 +1,20 @@
 import { motion } from "framer-motion";
 import { Chrome, Edge, Firefox, Opera, Safari } from "./brandIcons";
 
+// Animation config: tweak these values to adjust entrance stagger and pop intensity
+const ANIM = {
+  stagger: 0.10,
+  initialDelay: 0,
+  duration: 0.7,
+  popStart: 0.96,
+  popEnd: 1,
+  popDuration: 0.7,
+  hoverLift: -8,
+  hoverScale: 1.03,
+  tapScale: 0.985,
+  spring: { type: "spring", stiffness: 320, damping: 28 },
+};
+
 const platforms = [
   { name: "Chrome", icon: Chrome, href: "/extension.zip", available: true, cta: "Download ZIP" },
   { name: "Edge", icon: Edge, href: "/extension.zip", available: true, cta: "Download ZIP" },
@@ -15,19 +29,20 @@ const DownloadSection = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1,
+        staggerChildren: ANIM.stagger,
+        delayChildren: ANIM.initialDelay,
       },
     },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 22, scale: 0.96 },
+    hidden: { opacity: 0, y: 22, scale: ANIM.popStart },
     visible: {
       opacity: 1,
       y: 0,
-      scale: 1,
+      scale: ANIM.popEnd,
       transition: {
-        duration: 0.7,
+        duration: ANIM.popDuration,
         ease: [0.23, 1, 0.32, 1],
       },
     },
@@ -62,9 +77,9 @@ const DownloadSection = () => {
               key={browser.name}
               href={browser.href}
               variants={itemVariants}
-              whileHover={{ y: -8, scale: 1.03 }}
-              whileTap={{ scale: 0.985 }}
-              transition={{ type: "spring", stiffness: 320, damping: 28 }}
+              whileHover={{ y: ANIM.hoverLift, scale: ANIM.hoverScale }}
+              whileTap={{ scale: ANIM.tapScale }}
+              transition={ANIM.spring}
               className="glass-card-hover p-8 flex flex-col items-center group relative overflow-hidden"
             >
               <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
