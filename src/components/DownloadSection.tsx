@@ -1,12 +1,12 @@
 import { motion } from "framer-motion";
-import { Chrome, Shield, Globe, Compass, Layout } from "lucide-react";
+import { Chrome, Edge, Firefox, Opera, Safari } from "./brandIcons";
 
 const platforms = [
   { name: "Chrome", icon: Chrome, href: "/extension.zip", available: true, cta: "Download ZIP" },
-  { name: "Edge", icon: Shield, href: "/extension.zip", available: true, cta: "Download ZIP" },
-  { name: "Firefox", icon: Globe, href: "/extension.zip", available: true, cta: "Download ZIP" },
-  { name: "Opera", icon: Compass, href: "/extension.zip", available: true, cta: "Download ZIP" },
-  { name: "Safari", icon: Layout, href: "/extension.zip", available: true, cta: "Download ZIP" },
+  { name: "Edge", icon: Edge, href: "/extension.zip", available: true, cta: "Download ZIP" },
+  { name: "Firefox", icon: Firefox, href: "/extension.zip", available: true, cta: "Download ZIP" },
+  { name: "Opera", icon: Opera, href: "/extension.zip", available: true, cta: "Download ZIP" },
+  { name: "Safari", icon: Safari, href: "/extension.zip", available: true, cta: "Download ZIP" },
 ];
 
 const DownloadSection = () => {
