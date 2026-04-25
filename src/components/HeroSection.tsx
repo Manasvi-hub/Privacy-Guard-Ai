@@ -12,6 +12,7 @@ const HeroSection = () => {
   const currentRef = useRef({ x: 0, y: 0 });
   const rafRef = useRef<number | null>(null);
   const userInteractedRef = useRef(false);
+  const autoplayConsumedRef = useRef(false);
   const reduceMotion = useReducedMotion();
 
   useEffect(() => {
@@ -71,6 +72,33 @@ const HeroSection = () => {
       mounted = false;
       observer.disconnect();
       stop();
+    };
+  }, [reduceMotion]);
+
+  useEffect(() => {
+    if (reduceMotion) return;
+
+    const markInteracted = () => {
+      userInteractedRef.current = true;
+    };
+
+    window.addEventListener("pointerdown", markInteracted, { passive: true });
+    window.addEventListener("keydown", markInteracted);
+
+    // Trigger autoplay only once per page load after initial 5 seconds.
+    const t = window.setTimeout(() => {
+      if (autoplayConsumedRef.current) return;
+      if (userInteractedRef.current) return;
+
+      autoplayConsumedRef.current = true;
+      setAutoplayActive(true);
+      setShowVideo(true);
+    }, 5000);
+
+    return () => {
+      clearTimeout(t);
+      window.removeEventListener("pointerdown", markInteracted);
+      window.removeEventListener("keydown", markInteracted);
     };
   }, [reduceMotion]);
 
@@ -163,6 +191,7 @@ const HeroSection = () => {
               <button
                 onClick={() => {
                   userInteractedRef.current = true;
+                  autoplayConsumedRef.current = true;
                   setAutoplayActive(false);
                   setShowVideo(true);
                 }}
@@ -227,36 +256,19 @@ const HeroSection = () => {
         </div>
       </section>
 
-        <Suspense fallback={null}>
-          <VideoModal isOpen={showVideo} onClose={() => { setShowVideo(false); setAutoplayActive(false); }} autoplayMuted={autoplayActive} />
-        </Suspense>
-
-        {/* Autoplay demo after 5 minutes on first open (respecting reduced-motion) */}
-        {typeof window !== 'undefined' && (
-          <AutoplayHandler reduceMotion={reduceMotion} onAutoplay={() => {
-            if (!userInteractedRef.current) {
-              setAutoplayActive(true);
-              setShowVideo(true);
-            }
-          }} />
-        )}
+      <Suspense fallback={null}>
+        <VideoModal
+          isOpen={showVideo}
+          onClose={() => {
+            autoplayConsumedRef.current = true;
+            setShowVideo(false);
+            setAutoplayActive(false);
+          }}
+          autoplayMuted={autoplayActive}
+        />
+      </Suspense>
     </>
   );
 };
 
-  export default HeroSection;
-
-  // Small client-only component to manage autoplay timing so we keep HeroSection logic tidy
-  // Autoplay will trigger after a short delay between 5-7 seconds (randomized) unless
-  // the user prefers reduced motion or interacts with the page first.
-  function AutoplayHandler({ reduceMotion, onAutoplay }: { reduceMotion: boolean; onAutoplay: () => void }) {
-    useEffect(() => {
-      if (reduceMotion) return;
-      const min = 5000;
-      const max = 7000;
-      const delay = Math.floor(min + Math.random() * (max - min));
-      const t = setTimeout(() => onAutoplay(), delay);
-      return () => clearTimeout(t);
-    }, [reduceMotion, onAutoplay]);
-    return null;
-  }
+export default HeroSection;
