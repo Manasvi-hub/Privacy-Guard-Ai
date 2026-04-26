@@ -16,12 +16,14 @@ const ANIM = {
   spring: { type: "spring", stiffness: 320, damping: 28 },
 };
 
+const FALLBACK_ZIP = "/new.zip";
+
 const platforms = [
-  { name: "Chrome", icon: Chrome, href: STORE_LINKS.chrome || "/extension.zip", available: true, cta: STORE_LINKS.chrome ? "Open on Chrome Web Store" : "Download ZIP" },
-  { name: "Edge", icon: Edge, href: STORE_LINKS.edge || "/extension.zip", available: true, cta: STORE_LINKS.edge ? "Open on Edge Add-ons" : "Download ZIP" },
-  { name: "Firefox", icon: Firefox, href: STORE_LINKS.firefox || "/extension.zip", available: true, cta: STORE_LINKS.firefox ? "Open on Firefox Add-ons" : "Download ZIP" },
-  { name: "Opera", icon: Opera, href: STORE_LINKS.opera || "/extension.zip", available: true, cta: STORE_LINKS.opera ? "Open on Opera Add-ons" : "Download ZIP" },
-  { name: "Safari", icon: Safari, href: STORE_LINKS.safari || "/extension.zip", available: true, cta: STORE_LINKS.safari ? "Open on App Store" : "Download ZIP" },
+  { name: "Chrome", icon: Chrome, href: STORE_LINKS.chrome || FALLBACK_ZIP, available: true, cta: STORE_LINKS.chrome ? "Open on Chrome Web Store" : "Download ZIP" },
+  { name: "Edge", icon: Edge, href: STORE_LINKS.edge || FALLBACK_ZIP, available: true, cta: STORE_LINKS.edge ? "Open on Edge Add-ons" : "Download ZIP" },
+  { name: "Firefox", icon: Firefox, href: STORE_LINKS.firefox || FALLBACK_ZIP, available: true, cta: STORE_LINKS.firefox ? "Open on Firefox Add-ons" : "Download ZIP" },
+  { name: "Opera", icon: Opera, href: STORE_LINKS.opera || FALLBACK_ZIP, available: true, cta: STORE_LINKS.opera ? "Open on Opera Add-ons" : "Download ZIP" },
+  { name: "Safari", icon: Safari, href: STORE_LINKS.safari || FALLBACK_ZIP, available: true, cta: STORE_LINKS.safari ? "Open on App Store" : "Download ZIP" },
 ];
 
 const DownloadSection = () => {
@@ -117,6 +119,7 @@ const DownloadSection = () => {
                 href={browser.href}
                 target={isExternal ? "_blank" : undefined}
                 rel={isExternal ? "noopener noreferrer" : undefined}
+                download={!isExternal ? "new.zip" : undefined}
                 variants={itemVariants}
                 whileHover={{ y: ANIM.hoverLift, scale: ANIM.hoverScale }}
                 whileTap={{ scale: ANIM.tapScale }}
