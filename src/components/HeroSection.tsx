@@ -47,7 +47,7 @@ const HeroSection = () => {
       if (rafRef.current == null) rafRef.current = requestAnimationFrame(animate);
     };
     const stop = () => {
-      el.removeEventListener("pointermove", onMove as any);
+      el.removeEventListener("pointermove", onMove);
       if (rafRef.current) {
         cancelAnimationFrame(rafRef.current);
         rafRef.current = null;

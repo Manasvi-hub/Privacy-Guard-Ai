@@ -101,9 +101,7 @@ export const Chrome: React.FC<IconProps> = ({ className, size, alt }) => (
 );
 
 export const Edge: React.FC<IconProps> = ({ className, size, alt }) => (
-  // Render inline Edge SVG for consistent sizing across themes and clients.
-  // Apply the passed Tailwind sizing via `className` (e.g. w-8 h-8).
-  <EdgeSVG className={className} width={size ?? 24} height={size ?? 24} role="img" aria-label={alt ?? "Edge"} />
+  <ImgWithFallback src="/brands/edge.svg" alt={alt ?? "Edge"} fallback={<EdgeSVG />} className={className} size={size} />
 );
 
 export const Firefox: React.FC<IconProps> = ({ className, size, alt }) => (

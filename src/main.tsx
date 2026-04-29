@@ -16,9 +16,7 @@ if (typeof window !== "undefined") {
 
 		// Temporarily disable smooth scrolling to avoid a browser restoring a position
 		// with a smooth animation. We'll restore the CSS value shortly after load.
-		try {
-			document.documentElement.style.scrollBehavior = 'auto';
-		} catch (err) {}
+		document.documentElement.style.scrollBehavior = 'auto';
 
 		window.scrollTo(0, 0);
 
@@ -31,9 +29,7 @@ if (typeof window !== "undefined") {
 		window.addEventListener('load', () => {
 			// small delay to let the browser settle
 			window.setTimeout(() => {
-				try {
-					document.documentElement.style.scrollBehavior = '';
-				} catch (err) {}
+				document.documentElement.style.scrollBehavior = '';
 			}, 50);
 		});
 	} catch (e) {

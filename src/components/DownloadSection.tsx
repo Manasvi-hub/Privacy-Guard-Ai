@@ -68,42 +68,6 @@ const DownloadSection = () => {
           </h2>
         </motion.div>
 
-        {STORE_LINKS.edge && STORE_LINKS.edge.startsWith("http") && (
-          <div className="max-w-4xl mx-auto mb-8">
-            <div className="glass-card px-4 py-3 flex items-center justify-between gap-4">
-              <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-md bg-white/5 flex items-center justify-center">
-                  <Edge className="w-6 h-6 text-white" />
-                </div>
-                <div>
-                  <p className="text-sm font-bold text-white">PrivacyGuard on Microsoft Edge Add-ons</p>
-                  <p className="text-xs text-white/50">Install from the official Edge Add-ons store</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-3">
-                <a
-                  href={STORE_LINKS.edge}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[12px] font-black bg-white/6 px-3 py-1 rounded-full border border-white/8"
-                >
-                  Open Add-ons
-                </a>
-                {STORE_LINKS.partnerCenter && STORE_LINKS.partnerCenter.startsWith("http") && (
-                  <a
-                    href={STORE_LINKS.partnerCenter}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[12px] font-black bg-white/6 px-3 py-1 rounded-full border border-white/8"
-                  >
-                    Open Partner Center
-                  </a>
-                )}
-              </div>
-            </div>
-          </div>
-        )}
-
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -131,7 +95,7 @@ const DownloadSection = () => {
                     <span className="absolute top-3 right-3 z-20 text-[10px] px-2 py-1 bg-white/6 text-white rounded-full border border-white/8 pointer-events-none">Edge Add-ons</span>
                   )}
                   <div className="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500 border border-white/5 group-hover:border-primary/20 group-hover:bg-primary/5 relative z-10">
-                  <browser.icon className={`w-8 h-8 transition-transform ${browser.name === 'Edge' ? 'scale-110' : ''}`} />
+                  <browser.icon className={`w-8 h-8 transition-transform`} />
                 </div>
                 <h3 className="font-black text-xs uppercase tracking-widest text-white/40 group-hover:text-white transition-colors relative z-10 text-center">
                   {browser.name}

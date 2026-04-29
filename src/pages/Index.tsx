@@ -7,7 +7,7 @@ import FeaturesSection from "@/components/FeaturesSection";
 import HowItWorks from "@/components/HowItWorks";
 import ProcessStepGuide from "@/components/ProcessStepGuide";
 import Footer from "@/components/Footer";
-import PartnerCenterSection from "@/components/PartnerCenterSection";
+import EdgeAddonsSection from "@/components/EdgeAddonsSection";
 
 const InteractiveDemo = lazy(() => import("@/components/InteractiveDemo"));
 const DownloadSection = lazy(() => import("@/components/DownloadSection"));
@@ -34,13 +34,13 @@ const Index = () => {
   });
 
   React.useEffect(() => {
-    const handler = (e: any) => {
+    const handler = (e: PointerEvent) => {
       try {
         const el = (e.target as HTMLElement).closest?.('[data-ripple]') as HTMLElement | null;
         if (!el) return;
         const rect = el.getBoundingClientRect();
-        const x = (e.clientX ?? 0) - rect.left;
-        const y = (e.clientY ?? 0) - rect.top;
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
         const ripple = document.createElement('span');
         ripple.className = 'ripple-el';
         const size = Math.max(rect.width, rect.height) * 1.4;
@@ -54,20 +54,18 @@ const Index = () => {
       }
     };
     document.addEventListener('pointerdown', handler, { passive: true });
-    return () => document.removeEventListener('pointerdown', handler as any);
+    return () => document.removeEventListener('pointerdown', handler);
   }, []);
 
   // Ensure we start at the top of the page after hydration to avoid
   // mid-page landing caused by browser restore or in-page anchors.
   useEffect(() => {
-    try {
-      // Run several scroll resets at different micro-timings to counter
-      // late layout shifts or bfcache restore behavior.
-      window.scrollTo(0, 0);
-      requestAnimationFrame(() => window.scrollTo(0, 0));
-      setTimeout(() => window.scrollTo(0, 0), 50);
-      setTimeout(() => window.scrollTo(0, 0), 300);
-    } catch (e) {}
+    // Run several scroll resets at different micro-timings to counter
+    // late layout shifts or bfcache restore behavior.
+    window.scrollTo(0, 0);
+    requestAnimationFrame(() => window.scrollTo(0, 0));
+    setTimeout(() => window.scrollTo(0, 0), 50);
+    setTimeout(() => window.scrollTo(0, 0), 300);
   }, []);
 
   return (
@@ -93,7 +91,7 @@ const Index = () => {
         <InteractiveDemo />
       </Suspense>
       <SectionDivider />
-      <PartnerCenterSection />
+      <EdgeAddonsSection />
       <SectionDivider />
       <Suspense fallback={<SkeletonDemo />}>
         <DownloadSection />
